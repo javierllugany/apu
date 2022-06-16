@@ -12,7 +12,7 @@
 }
 
 header{
-  background-image: url("../../design/BackgroundMontañasTierra.png"), linear-gradient(to bottom, rgba(191, 181, 90, 1) 40%, rgba(191, 181, 90, 1) 10%, rgb(255, 152, 68) 10%, rgb(255, 152, 68) 40%);
+  background-image: url("../../design/BackgroundMontañasTierra.png"), linear-gradient(to bottom, rgba(191, 181, 90, 1) 49%, rgba(191, 181, 90, 1) 1%, rgb(255, 152, 68) 1%, rgb(255, 152, 68) 49%);
   background-repeat: no-repeat, no-repeat;
   background-position-x: 0vw, center;
   background-position-y: 12vw, bottom;
@@ -113,7 +113,7 @@ input[type="checkbox"]:checked ~ #botonLogo {
 nav.MenuDesplegable{
 	position: absolute;
 	top: 0;
-	bottom: 6vw;
+	/* bottom: 6vw; */
 	left:-30vw; /* Escondemos nuestro menú con un valor negativo */
 	width: 30vw;
 	z-index: 5;
@@ -364,5 +364,69 @@ div #marcoTercero{
     grid-column: 4/15;
     grid-row: 6/9;
   }
+}
 
+/* desde acá css para subpag ubicacion.html */
+
+.pagUbicacion div#pagPresentacion{
+  display: grid;
+  grid-template-areas:
+        "header header socialLink"
+        "fotos fotos socialLink"
+        "footer footer footer";
+  grid-template-columns: 1fr 1fr 4vw;
+  grid-template-rows: 35vw auto auto;
+  grid-row-gap: 2vw;
+  grid-column-gap: 2vw;
+}
+
+.pagUbicacion div#pagPresentacion #LogoApu{
+  justify-self: auto;
+  width: 15vw;
+  margin: 5vw 12vw 2vw;
+}
+
+.pagUbicacion div#pagPresentacion label#botonLogo{
+  width: 15vw;
+  height: 20vw;
+  justify-self: auto;
+  margin: 5vw 12vw 2vw;
+}
+
+div.textoUbicacion{
+  grid-area: header;
+  justify-self: end;
+  text-align: right;
+  margin: 8vw 10vw auto auto;
+  font-size: 3vw;
+  line-height: 4vw;
+  transition: all 0.50s ease;
+}
+
+input[type="checkbox"]:checked ~ div.textoUbicacion{
+  font-size: 2vw;
+}
+
+div.ubicacion{
+  grid-area: fotos;
+  justify-self: center;
+}
+
+div.ubicacion .mapaChico{
+  display: none;
+}
+
+@media screen and (orientation: portrait){
+
+  header.pagUbicacion{
+    background-position-y: 33vw, bottom;
+  }
+
+  div.ubicacion .mapaMediano{
+    display: none;
+  }
+
+  div.ubicacion .mapaChico{
+    display: block;
+  }
 }

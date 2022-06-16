@@ -37,11 +37,7 @@ let fotosMarco3=new Array(
           'public/files/imgFrontpage/29.jpg',
 );
 
-var x=0;
-
 var y=0;
-
-var z=0;
 
 setInterval(function () {
 
@@ -51,11 +47,14 @@ let random1=Math.floor(Math.random() * fotosMarco1.length);
 let random3=Math.floor(Math.random() * fotosMarco3.length);
 
       const imagen1 = document.getElementById("foto1");
-          imagen1.style.opacity = "0";
+        imagen1.style.opacity = "0";
       const imagen2 = document.getElementById("foto2");
-          imagen2.style.opacity = "0";
+        imagen2.style.opacity = "0";
       const imagen3 = document.getElementById("foto3");
-          imagen3.style.opacity = "0";
+        imagen3.style.opacity = "0";
+
+      // let imagen=document.getElementsByClassName("opacidad");
+      //     imagen.style.opacity="0";
       setTimeout(() => {
         document.getElementById("foto1").src=fotosMarco1[random1];
         document.getElementById("foto2").src=fotosMarco2[y++%fotosMarco2.length];
@@ -63,6 +62,8 @@ let random3=Math.floor(Math.random() * fotosMarco3.length);
         imagen1.style.opacity = "1";
         imagen2.style.opacity = "1";
         imagen3.style.opacity = "1";
+
+        // imagen.style.opacity="1";
       }, 1000);
 
 },5000);
