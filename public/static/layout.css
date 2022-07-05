@@ -422,11 +422,20 @@ div.ubicacion .mapaChico{
     background-position-y: 33vw, bottom;
   }
 
+  /*  .pagUbicacion div#pagPresentacion{
+    transition: all 0.50s ease;
+  }
+
+   input[type="checkbox"]:checked ~ .pagUbicacion div#pagPresentacion{
+      grid-template-rows: 55vw auto auto;
+  } */
+
   div.ubicacion .mapaMediano{
     display: none;
   }
 
   div.ubicacion .mapaChico{
     display: block;
+    width: 90%;
   }
 }
