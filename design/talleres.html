@@ -2,7 +2,7 @@
 <html lang="es" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>APU Mapa/Contacto</title>
+    <title>APU Talleres</title>
     <link rel="shortcut icon" href="../public/static/logos/APU-icon.png" type="image/png">
     <link rel="stylesheet" href="../public/static/layout.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -10,9 +10,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap" rel="stylesheet">
   </head>
   <body>
-    <header class="pagUbicacion">
+    <header class="pagTalleres">
       <div id="pagPresentacion">
-        <h1>APU CONTACTO MAPA y UBICACION</h1>
+        <h1>APU TALLERES</h1>
         <input type="checkbox" id="checkboxHamburguesa" onclick="aumentaTamañoGrid()" name="" value="">
 <!-- <script type="text/javascript">
         document.getElementById('checkboxHamburguesa').removeAttribute('checked');
@@ -48,6 +48,8 @@
                 <li><a href="">COMO CONTRIBUIR</a></li>
   						</ul>
   					</li>
+  					<li><a id="contacto" href="design/ubicacion.html">CONTACTO<br>UBICACION</a>
+            </li>
   				</ul>
   			</nav>
         <div class="textoUbicacion">
@@ -62,15 +64,11 @@
           </a>
           <a id="subscribe-button" href="#subscribe">Subscribite</a>
         </div>
-        <div class="ubicacion">
-              <iframe class="mapaMediano" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d214110.72537794744!2d-69.53744888305664!3d-33.01748018770446!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x967deb64c38e7955%3A0x95f8a56ba326cc7d!2sAPU%20CLUB%20DE%20MONTA%C3%91A!5e0!3m2!1ses-419!2ses!4v1654770682182!5m2!1ses-419!2ses" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-              <iframe class="mapaChico" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3345.479773075291!2d-69.27597878446946!3d-33.017488382808594!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x967deb64c38e7955%3A0x95f8a56ba326cc7d!2sAPU%20CLUB%20DE%20MONTA%C3%91A!5e0!3m2!1ses-419!2ses!4v1655377239226!5m2!1ses-419!2ses" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
       </div>
     </header>
     <script type="text/javascript">
 
-/*    function aumentaTamañoGrid(){
+    function aumentaTamañoGrid(){
       let medidaGrid = document.getElementById("pagPresentacion");
       let menuBurguer = document.getElementById('checkboxHamburguesa');
       const mediaQuery = window.matchMedia('(orientation: portrait)');
@@ -85,7 +83,7 @@
         // if (menuBurguer.checked & mediaQuery.matches) {
         //   medidaGrid.style.gridTemplateRows = '55vw auto auto';
         // }
-*/
+
     </script>
   </body>
 </html>
