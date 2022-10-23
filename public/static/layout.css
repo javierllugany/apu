@@ -256,11 +256,12 @@ div.BackgroundMontañas img{
 .proyeccionFotos{
   grid-area: fotos;
   overflow: hidden;
+  display: grid;
 }
 
 div #marcoPrimero{
   width: 34vw;
-  height: 40vw;
+  align-self: center;
 }
 
 .proyeccionFotos img{
@@ -276,20 +277,26 @@ div #marcoPrimero{
 
   header{
     background-position-y: 33vw, bottom;
+    background-image: url("../../design/BackgroundMontañasTierra.png"),
+    linear-gradient(to bottom, rgb(191, 181, 90) 40vh, rgb(191, 181, 90) 1%,
+    rgb(255, 152, 68) 1%, rgb(255, 152, 68) 49%);
   }
 
   div#pagPresentacion{
     display: grid;
-    grid-template-areas:
-          "logo logo logo socialLink"
-          "evento evento fotos socialLink"
-          "footer footer footer footer";
+    grid-template-areas: "logo logo logo socialLink"
+    "fotos fotos fotos socialLink"
+    "evento evento evento socialLink"
+    "footer footer footer footer";
     grid-template-columns: 1fr 2fr 1fr 9vw;
+    overflow: auto;
+    grid-template-rows: 40vh auto auto;
+    height: auto;
   }
 
-  #pagPresentacion label{
-    width: 7vw;
-    height: 5vw;
+  #pagPresentacion label#botonLogo{
+    width: 42vw;
+    height: 30vh;
     margin: 3vw 2.5vw;
     border-radius: 10px;
   }
@@ -302,15 +309,16 @@ div #marcoPrimero{
     left: calc(50% - 1.7vw);
   }
 
-
-  #LogoApu{
-    width: 60vw;
-  }
-
   input[type="checkbox"]:checked ~ #LogoApu,
   input[type="checkbox"]:checked ~ #botonLogo {
-    opacity: 0.4;
-    transform: none;
+    opacity: 1;
+    transform: translateY(40vh);
+    z-index: 6;
+  }
+
+  input[type="checkbox"]:checked ~ nav.MenuDesplegable {
+    grid-area: logo/logo/fotos/logo;
+    width: 100%;
   }
 
   /* desde aca revisar */
@@ -359,16 +367,53 @@ div #marcoPrimero{
   }
 
   .proyeccionFotos{
-    grid-template-columns: repeat(18, 1fr);
-    grid-template-rows: repeat(9, 10.1vw);
+    display: grid;
+    height: 36vh;
   }
 
   div #marcoPrimero{
-    width: auto;
+    width: 80%;
     height: auto;
-    grid-column: 2/11;
-    grid-row: 2/8;
+    justify-self: center;
+    align-self: center;
   }
+div.proximasActividades{
+  margin-left: 4vw;
+  overflow: auto;
+}
+
+div.proximasActividades h2{
+	font-size: 1em;
+}
+
+ul.listaActividades {
+	display: block;
+	height: auto;
+}
+
+.proximasActividades li {
+	grid-template-areas: "titulo titulo" "foto resumen";
+	margin: 3vh 2vw 1vh 0vw;;
+	grid-template-rows: auto auto;
+	grid-gap: 1.5vh;
+	overflow: auto;
+	text-align: left;
+	grid-template-columns: auto auto;
+}
+
+.proximasActividades h3 {
+	font-size: 1em;
+}
+
+.proximasActividades img {
+    width: 36vw;
+    overflow: clip;
+}
+
+.proximasActividades p {
+	font-size: 0.9em;
+}
+
 }
 
 /* desde acá css para subpag ubicacion.html */
@@ -393,8 +438,8 @@ div #marcoPrimero{
 }
 
 .pagUbicacion div#pagPresentacion label#botonLogo{
-  width: 12vw;
-  height: 15vw;
+  width: 18vw;
+  height: 27vh;
   justify-self: auto;
   margin: 5vw 12vw auto;
   grid-area: logo;
@@ -426,8 +471,47 @@ div.ubicacion .mapaChico{
 @media screen and (orientation: portrait){
 
   header.pagUbicacion{
-    background-position-y: 33vw, bottom;
+    height: 100vh;
   }
+
+  .pagUbicacion div#pagPresentacion {
+    display: grid;
+    grid-template-areas: "logo logo socialLink" "texto texto socialLink" "mapa mapa socialLink" "footer footer footer";
+    grid-template-columns: 1fr 1fr 4vw;
+    grid-template-rows: 35vh auto auto auto;
+    grid-row-gap: 2vw;
+    height: 100vh;
+  }
+
+  .pagUbicacion div#pagPresentacion #LogoApu{
+    margin: 5vh auto 2vh;
+  }
+
+  .pagUbicacion div#pagPresentacion label#botonLogo {
+	width: 38vw;
+	height: 47vw;
+	margin: 5vh auto auto;
+}
+
+input[type="checkbox"]:checked ~ .pagUbicacion div#pagPresentacion nav.MenuDesplegable {
+	grid-area: logo/logo/mapa/logo;
+	width: 100%;
+}
+
+.pagUbicacion ul.submenu {
+    right: 7vw;
+}
+
+.pagUbicacion ul.submenu li a {
+    width: 32vw;
+}
+
+div.textoUbicacion {
+	grid-area: texto;
+	text-align: left;
+	margin: 4vw auto auto 4vw;
+	font-size: 2vh;
+}
 
   /*  .pagUbicacion div#pagPresentacion{
     transition: all 0.50s ease;
