@@ -207,18 +207,6 @@ a#subscribe-button{
   text-align:center;
 }
 
-div.BackgroundMontañas{
-  width: 100vw;
-  position: fixed;
-  top: 13vw;
-}
-
-div.BackgroundMontañas img{
-  width: 100%;
-  position: relative;
-  z-index: 1;
-}
-
 .proximasActividades{
   grid-area: evento;
   margin-left: 2vw;
@@ -301,8 +289,14 @@ div #marcoPrimero{
     border-radius: 10px;
   }
 
+  #pagPresentacion label {
+	width: 8vw;
+	height: 5vw;
+	margin: 3vw 2.5vw;
+}
+
   #menuON span{
-    width: 3.5vw;
+    width: 4.5vw;
     height: 0.75vw;
     border-radius: 4px;
     top: 0.9vw;
@@ -338,11 +332,11 @@ div #marcoPrimero{
     width: max-content;
   }
 
-  ul.submenu li a{
-    width: 28vw;
-  }
-
   /* hasta aca revisar */
+
+  ul.submenu li a{
+    width: 32vw;
+  }
 
   ul.MenuDesplegable1 li a:target ~ ul.submenu{
     display: block;
@@ -500,10 +494,6 @@ input[type="checkbox"]:checked ~ .pagUbicacion div#pagPresentacion nav.MenuDespl
 
 .pagUbicacion ul.submenu {
     right: 7vw;
-}
-
-.pagUbicacion ul.submenu li a {
-    width: 32vw;
 }
 
 div.textoUbicacion {

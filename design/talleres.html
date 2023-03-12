@@ -13,10 +13,7 @@
     <header class="pagTalleres">
       <div id="pagPresentacion">
         <h1>APU TALLERES</h1>
-        <input type="checkbox" id="checkboxHamburguesa" onclick="aumentaTamañoGrid()" name="" value="">
-<!-- <script type="text/javascript">
-        document.getElementById('checkboxHamburguesa').removeAttribute('checked');
-</script> -->
+        <input type="checkbox" id="checkboxHamburguesa" onclick="" name="" value="">
         <label for="checkboxHamburguesa" id="menuON">
           <span></span>
           <span></span>
@@ -30,7 +27,7 @@
             </li>
   					<li><a id="actividades" href="#actividades">ACTIVIDADES</a>
               <ul class="submenu">
-                <li><a href="design/talleres.html">TALLERES</a></li>
+                <li><a href="talleres.html">TALLERES</a></li>
                 <li><a href="">EVENTOS</a></li>
                 <li><a href="">AGENDA</a></li>
               </ul>
@@ -48,7 +45,7 @@
                 <li><a href="">COMO CONTRIBUIR</a></li>
   						</ul>
   					</li>
-  					<li><a id="contacto" href="design/ubicacion.html">CONTACTO<br>UBICACION</a>
+  					<li><a id="contacto" href="ubicacion.html">CONTACTO<br>UBICACION</a>
             </li>
   				</ul>
   			</nav>
@@ -62,28 +59,9 @@
           </a>
           <a class="social-link-in" href="http://www.instagram.com/apuclubdemonte" target="_blank" rel="noopener"><img src="../public/static/logos/glyph-logo_May2016.png" alt="enlace a Instagram">
           </a>
-          <a id="subscribe-button" href="#subscribe">Subscribite</a>
+          <a id="subscribe-button" href="mailto:apuclubdelmonte@gmail.com">Subscribite</a>
         </div>
       </div>
     </header>
-    <script type="text/javascript">
-
-    function aumentaTamañoGrid(){
-      let medidaGrid = document.getElementById("pagPresentacion");
-      let menuBurguer = document.getElementById('checkboxHamburguesa');
-      const mediaQuery = window.matchMedia('(orientation: portrait)');
-        if (menuBurguer.checked && mediaQuery.matches) {
-          medidaGrid.style.gridTemplateRows = "60vw auto auto";
-        }
-        else {
-          medidaGrid.style.gridTemplateRows = "35vw auto auto";
-        }
-      }
-
-        // if (menuBurguer.checked & mediaQuery.matches) {
-        //   medidaGrid.style.gridTemplateRows = '55vw auto auto';
-        // }
-
-    </script>
   </body>
 </html>
