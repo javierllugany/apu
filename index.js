@@ -1,42 +1,109 @@
-//dependencias
-const entrada = require('entrada');
+const fs = require('fs').promises;
+const path = require('path');
+const process = require('process');
+const {authenticate} = require('@google-cloud/local-auth');
+const {google} = require('googleapis');
 
-//Import routes
-const routesentrada = require('./routes/routesentrada');
+// If modifying these scopes, delete token.json.
+const SCOPES = ['https://www.googleapis.com/auth/drive.metadata.readonly', 'https://www.googleapis.com/auth/drive.file', 'https://www.googleapis.com/auth/drive.readonly', 'https://www.googleapis.com/auth/drive'];
 
-import { nuevaEntrada } from "./js/nuevaEntrada.js";
+// The file token.json stores the user's access and refresh tokens, and is
+// created automatically when the authorization flow completes for the first
+// time.
+const TOKEN_PATH = path.join(process.cwd(), 'token.json');
+const CREDENTIALS_PATH = path.join(process.cwd(), 'credentials.json');
 
-const nuevaEntrada = new nuevaEntrada();
-document.body.appendChild(nuevaEntrada);
+/**
+ * Reads previously authorized credentials from the save file.
+ *
+ * @return {Promise<OAuth2Client|null>}
+ */
+async function loadSavedCredentialsIfExist() {
+  try {
+    const content = await fs.readFile(TOKEN_PATH);
+    const credentials = JSON.parse(content);
+    return google.auth.fromJSON(credentials);
+  } catch (err) {
+    return null;
+  }
+}
 
-//initializa dotenv:
+/**
+ * Serializes credentials to a file comptible with GoogleAUth.fromJSON.
+ *
+ * @param {OAuth2Client} client
+ * @return {Promise<void>}
+ */
+async function saveCredentials(client) {
+  const content = await fs.readFile(CREDENTIALS_PATH);
+  const keys = JSON.parse(content);
+  const key = keys.installed || keys.web;
+  const payload = JSON.stringify({
+    type: 'authorized_user',
+    client_id: key.client_id,
+    client_secret: key.client_secret,
+    refresh_token: client.credentials.refresh_token,
+  });
+  await fs.writeFile(TOKEN_PATH, payload);
+}
 
-dotenv.config();
+/**
+ * Load or request or authorization to call APIs.
+ *
+ */
+async function authorize() {
+  let client = await loadSavedCredentialsIfExist();
+  if (client) {
+    return client;
+  }
+  client = await authenticate({
+    scopes: SCOPES,
+    keyfilePath: CREDENTIALS_PATH,
+  });
+  if (client.credentials) {
+    await saveCredentials(client);
+  }
+  return client;
+}
 
-mongoose.set('useCreateIndex', true);
-//Connect to DB
-mongoose.connect(process.env.DB_CONNECT,
-  {useNewUrlParser:true,
-   useUnifiedTopology: true},
-(err)=> {
-  if(err)console.log('error by connecting to db',err);
-  else console.log('connected to db');
-});
+/**
+ * Lists the names and IDs of up to 10 files.
+ * @param {OAuth2Client} authClient An authorized OAuth2 client.
+ */
+async function listFiles(authClient) {
+  const drive = google.drive({version: 'v3', auth: authClient});
+  const res = await drive.files.list({
+    pageSize: 10,
+    fields: 'nextPageToken, files(id, name)',
+  });
+  const files = res.data.files;
+  if (files.length === 0) {
+    console.log('No files found.');
+    return files;
+  }
 
-//Route Middlewares
-app.use(express.json({limit: '50mb'}));
-// app.use('/admin',adminRoute);
-app.use('/',fpRoute);
-// app.use('/noticia',notesRoute);
-app.use('/search',express.urlencoded({extended:false}),searchRoute);
-app.use('/iniciar',express.urlencoded({extended:false}),loginRoute);
-app.use('/user',auth, express.urlencoded({extended:true}),userRoute);
-//app.use('/user', express.urlencoded({extended:true}),userRoute);
-app.use('/api', auth, express.json({limit: '50mb'}),api);
-app.use('/admin',auth,adminRoute)
+  console.log('Files:');
+  files.map((file) => {
+    console.log(`${file.name} (${file.id})`);
+  });
+  console.log("Hello world!!");
 
-//serving static-files for test-purpose / can be served directly by nginx
-app.use('/public', express.static('./public'));
+  const realFileId="1cuhoAuE5RFA7I2ETHfhH8hVhl_RbFyyJ"
+  //const realFileId=res.data.files.name["datosFotosAPU.json"]; //estoy intentando que lea el arhivo por su nombre y no por su id
+  console.log("viene la exportacion");
+  fileId = realFileId;
+  try {
+    const archivoJson = await drive.files.get({
+      fileId: fileId,
+      alt: 'media',
+    });
+    console.log(archivoJson.status);
+    console.log(archivoJson);
+    return archivoJson;
+  } catch (err) {
+    // TODO(developer) - Handle error
+    throw err;
+  }
+}
 
-//start listening server
-app.listen(3033,() => console.log('server up and running at port',3033));
+authorize().then(listFiles).catch(console.error);

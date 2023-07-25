@@ -15,7 +15,7 @@ header{
   background-image: url("../../design/BackgroundMontañasTierra.png"), linear-gradient(to bottom, rgba(191, 181, 90, 1) 49%, rgba(191, 181, 90, 1) 1%, rgb(255, 152, 68) 1%, rgb(255, 152, 68) 49%);
   background-repeat: no-repeat, no-repeat;
   background-position-x: 0vw, center;
-  background-position-y: 12vw, bottom;
+  background-position-y: -2vh, bottom;
   background-size: 100%;
 }
 
@@ -35,6 +35,26 @@ div#pagPresentacion{
   height: 100vh;
   overflow: clip;
   grid-template-rows: 40vh 56vh;
+}
+
+#modeloSubpag div#pagPresentacion{
+  grid-template-areas:
+        "menu logo socialLink"
+        "evento evento socialLink"
+        "footer footer footer";
+  grid-template-columns: 1.5fr 2.5fr 4vw;
+  grid-template-rows: 40vh 56vh;
+  overflow: auto;
+}
+
+h1.h1modeloSubpag{
+  grid-area: logo;
+  justify-self: auto;
+  height: auto;
+  margin: auto 5vw 2vh auto;
+  position: relative;
+  left: 0px;
+  font-size: 3vw;
 }
 
 #menuON span{
@@ -69,7 +89,7 @@ div#pagPresentacion{
   z-index: 7;
   position: absolute;
   background-color: rgba(214, 244, 239, 0.2);
-  margin: 2vw 1.5vw;
+  margin: 4vw 1.5vw;
   border-radius: 10px;
 }
 
@@ -84,16 +104,38 @@ input[type="checkbox"]:checked ~ nav.MenuDesplegable {
   position:relative;
 }
 
+input[type="checkbox"]:checked ~ nav.MenuDesplegableModeloSuppag {
+  left: 0;
+  grid-area: menu;
+  position:relative;
+}
+
 input[type="checkbox"]:checked ~ #LogoApu,
 input[type="checkbox"]:checked ~ #botonLogo {
   opacity: 0.5;
   transform: translateX(20vw);
 }
 
+input[type="checkbox"]:checked ~ #LogoApuModeloSubpag,
+input[type="checkbox"]:checked ~ #botonLogoModeloSubpag {
+  opacity: 0.5;
+  transform: translateX(14vw);
+}
+
 #LogoApu{
   grid-area: logo;
   justify-self: center;
   height: 33vh;
+  margin: 4vh 0 2vw;
+  position: relative;
+  z-index: 5;
+  transition: all 0.50s ease;
+}
+
+#LogoApuModeloSubpag{
+  grid-area: logo;
+  justify-self: initial;
+  height: 18vh;
   margin: 4vh 0 2vw;
   position: relative;
   z-index: 5;
@@ -110,6 +152,19 @@ input[type="checkbox"]:checked ~ #botonLogo {
   z-index: 8;
   transition: all 0.50s ease;
   align-self: center;
+  background-color: inherit;
+}
+
+#pagPresentacion label#botonLogoModeloSubpag{
+  display: block;
+  width: 10vw;
+  height: 15vw;
+  grid-area: logo;
+  justify-self: initial;
+  position: relative;
+  z-index: 8;
+  transition: all 0.50s ease;
+  align-self: initial;
   background-color: inherit;
 }
 
@@ -261,10 +316,52 @@ div #marcoPrimero{
   transition: all 1s ease-out;
 }
 
+div.entrada{
+  grid-area: evento;
+  display: grid;
+  grid-template-areas: "titulo imgPrincipal"
+                      "contenido imgPrincipal"
+                      "fotos fotos";
+  grid-template-rows: 20vh 30vh 2fr;
+  grid-template-columns: 55vw 39vw;
+  grid-gap: 2vh;
+}
+
+h2.tituloEntrada{
+  grid-area: titulo;
+  font-size: 5vw;
+  text-align: end;
+}
+
+img.imgPrincipal{
+  grid-area: imgPrincipal;
+  max-width: 40vw;
+  max-height: 50vh;
+  margin-right: 5vw;
+  justify-self: end;
+}
+
+p.contenidoEntrada{
+  grid-area: contenido;
+  text-align: end;
+  font-size: 1.8vw;
+  line-height: 1.5em;
+  margin-left: 10vw;
+}
+
+div#sliderModelo{
+    grid-area: fotos;
+}
+
+div#sliderModelo img{
+  width: 35%;
+  display: inline;
+}
+
 @media screen and (orientation: portrait){
 
   header{
-    background-position-y: 33vw, bottom;
+    background-position-y: 12vh, bottom;
     background-image: url("../../design/BackgroundMontañasTierra.png"),
     linear-gradient(to bottom, rgb(191, 181, 90) 40vh, rgb(191, 181, 90) 1%,
     rgb(255, 152, 68) 1%, rgb(255, 152, 68) 49%);
@@ -282,7 +379,7 @@ div #marcoPrimero{
     height: auto;
   }
 
-  #pagPresentacion label#botonLogo{
+  #pagPresentacion label#botonLogo, #botonLogoModeloSubpag {
     width: 42vw;
     height: 30vh;
     margin: 3vw 2.5vw;
@@ -304,7 +401,10 @@ div #marcoPrimero{
   }
 
   input[type="checkbox"]:checked ~ #LogoApu,
-  input[type="checkbox"]:checked ~ #botonLogo {
+  input[type="checkbox"]:checked ~ #botonLogo,
+  input[type="checkbox"]:checked ~ #LogoApuModeloSubpag,
+  input[type="checkbox"]:checked ~ #botonLogoModeloSubpag,
+   {
     opacity: 1;
     transform: translateY(40vh);
     z-index: 6;
@@ -447,6 +547,15 @@ div.textoUbicacion{
   font-size: 2.5vh;
   line-height: 4vw;
   transition: all 0.50s ease;
+}
+
+div.textoUbicacionModelosubpag {
+  grid-area: logo;
+  justify-self: end;
+  text-align: right;
+  font-size: 1.5vh;
+  line-height: 2.5vw;
+  margin: 4vw 5vw auto auto;
 }
 
 input[type="checkbox"]:checked ~ div.textoUbicacion{
