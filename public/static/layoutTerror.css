@@ -1,0 +1,234 @@
+@font-face {
+  font-family:"Modesto";
+  src: url('fonts/Modesto Open FatOutline.ttf');
+}
+
+@font-face {
+  font-family:"ModestoFecha";
+  src: url('fonts/Modesto Text Bold.ttf');
+}
+
+@font-face {
+  font-family:"ModestoAPU";
+  src: url('fonts/Modesto Poster Regular.ttf');
+}
+
+@font-face {
+  font-family:"ModestoUbicacion";
+  src: url('fonts/Modesto Expanded Regular.ttf');
+}
+
+@font-face {
+  font-family:"ModestoTexto";
+  src: url('fonts/Modesto Text Light.ttf');
+}
+
+*{
+  margin: 0px;
+  padding: 0px;
+  color: white;
+  text-decoration: none;
+  list-style: none;
+}
+
+header{
+  background-color: black;
+  display: grid;
+  grid-template-areas:
+        "presentacion"
+        "dia1"
+        "dia2"
+        "ubicacion";
+  grid-template-rows: 100vh 100vh 100vh 100vh;
+}
+
+#presentacion{
+  grid-area: presentacion;
+  display: grid;
+  justify-content: center;
+}
+
+h1{
+  position:fixed;
+  left: -10000px;
+}
+
+h2{
+  font-family: "Modesto";
+  font-size: 2vh;
+  text-align: center;
+  padding-top: 4vh;
+  padding-bottom: 2vh;
+}
+
+.marcoPortada{
+  display: grid;
+  grid-template-rows: 4vh auto;
+}
+
+#tituloFest{
+  grid-row: 1;
+  justify-self: center;
+  width: 55%;
+  z-index: 3;
+}
+
+.portada{
+  grid-row: 2/3;
+  grid-column: 1/2;
+}
+
+#fondoPortada{
+  width: 100vw;
+}
+
+#años{
+  grid-row: 2/3;
+  grid-column: 1/2;
+  width: 20%;
+  align-self: end;
+  justify-self: left;
+  padding-left: 3vw;
+  padding-bottom: 3vh;
+}
+
+.dia{
+  text-align: right;
+  font-size: 2vh;
+  padding-top: 1vh;
+}
+
+.hora{
+  text-align: left;
+  font-size: 6vh;
+}
+
+#fecha{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  font-family: "ModestoFecha";
+  padding-top: 2vh;
+  padding-bottom: 2vh;
+}
+
+#textosApuUbicacion{
+  display: grid;
+  grid-template-rows: auto auto;
+  padding-bottom: 2vh;
+}
+
+.textoApu{
+  text-align: center;
+  font-family: "ModestoAPU";
+  font-size: 2.3vh;
+}
+
+.textoMendoza{
+  text-align: center;
+  font-family: "ModestoUbicacion";
+  font-size: 2.3vh;
+}
+
+.portadaTexto{
+  text-align: center;
+  font-family: "ModestoTexto";
+  font-size: 2vh;
+  width: 80%;
+  justify-self: center;
+  line-height: 2.2vh;
+}
+
+.seccionReserva{
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-column-gap: 5vw;
+  justify-content: center;
+  background-color: #1e0501;
+  padding: 1.5vh;
+  margin: 1.5vh 0 1.5vh;
+}
+
+#textoReserva{
+  grid-column: 1/2;
+  font-family: "ModestoTexto";
+  text-align: right;
+  align-self: center;
+  font-size: 2.5vh;
+}
+
+/*#reserva{
+  grid-column: 2/3;
+  font-family: "ModestoTexto";
+  border-radius: 45px;
+  border-color: #8a7e69;
+  background-color: #1e0501;
+  width: fit-content;
+  padding: 2vh;
+  display: flex;
+  flex-direction: row;
+}*/
+
+.cajaReserva{
+  display: flex;
+  flex-direction: row;
+}
+
+#reserva{
+  grid-column: 2/3;
+  border:solid;
+  border-width: 2px;
+  padding:2vh;
+  margin:0;
+  background-color: #1e0501;
+  border-radius: 45px;
+  border-color: #8a7e69;
+  font-family: "ModestoTexto";
+  font-size: 2.5vh;
+  display:flex;
+  align-items:center;
+}
+
+#reserva:hover {
+  border-color: black;
+  cursor:pointer;
+}
+
+#logoWhatsApp{
+  width: 6vh;
+}
+
+#LogoApu{
+  grid-area: logo;
+  justify-self: center;
+  height: 33vh;
+  margin: 4vh 0 2vw;
+  position: relative;
+  z-index: 5;
+  transition: all 0.50s ease;
+}
+
+a#subscribe-button{
+  text-decoration: none;
+  color: white;
+  font-size: 1.4vw;
+  letter-spacing: 1.1vw;
+  word-wrap: break-word;
+  text-align:center;
+}
+
+@media screen and (orientation: portrait){
+
+
+  #ubicacion .mapaMediano{
+    display: none;
+  }
+
+  #ubicacion .mapaChico{
+    display: block;
+    width: 90%;
+  }
+
+  #logoApu{
+    display: none;
+  }
+}
