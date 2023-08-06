@@ -5,16 +5,16 @@
 
 @font-face {
   font-family:"ModestoFecha";
-  src: url('fonts/Modesto Text Bold.ttf');
-}
-
-@font-face {
-  font-family:"ModestoAPU";
   src: url('fonts/Modesto Poster Regular.ttf');
 }
 
 @font-face {
-  font-family:"ModestoUbicacion";
+  font-family:"ModestoAPU";
+  src: url('fonts/Modesto Condensed Regular.ttf');
+}
+
+@font-face {
+  font-family:"ModestoNada";
   src: url('fonts/Modesto Expanded Regular.ttf');
 }
 
@@ -39,7 +39,6 @@ header{
         "dia1"
         "dia2"
         "ubicacion";
-  grid-template-rows: 100vh 100vh 100vh 100vh;
 }
 
 #presentacion{
@@ -125,7 +124,7 @@ h2{
 
 .textoMendoza{
   text-align: center;
-  font-family: "ModestoUbicacion";
+  font-family: "ModestoFecha";
   font-size: 2.3vh;
 }
 
@@ -140,7 +139,7 @@ h2{
 
 .seccionReserva{
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 2fr 2fr;
   grid-column-gap: 5vw;
   justify-content: center;
   background-color: #1e0501;
@@ -155,18 +154,6 @@ h2{
   align-self: center;
   font-size: 2.5vh;
 }
-
-/*#reserva{
-  grid-column: 2/3;
-  font-family: "ModestoTexto";
-  border-radius: 45px;
-  border-color: #8a7e69;
-  background-color: #1e0501;
-  width: fit-content;
-  padding: 2vh;
-  display: flex;
-  flex-direction: row;
-}*/
 
 .cajaReserva{
   display: flex;
@@ -197,23 +184,27 @@ h2{
   width: 6vh;
 }
 
-#LogoApu{
-  grid-area: logo;
+#logoApu{
+  display: none;
   justify-self: center;
-  height: 33vh;
+  width: 20vw;
   margin: 4vh 0 2vw;
-  position: relative;
-  z-index: 5;
-  transition: all 0.50s ease;
 }
 
-a#subscribe-button{
-  text-decoration: none;
-  color: white;
-  font-size: 1.4vw;
-  letter-spacing: 1.1vw;
-  word-wrap: break-word;
-  text-align:center;
+#ubicacion{
+  display: grid;
+  justify-content: center;
+}
+
+#ubicacion .mapaMediano{
+  display: block;
+  width: 90%;
+  padding-left: auto;
+  padding-right: auto;
+}
+
+#ubicacion .mapaChico{
+  display: none;
 }
 
 @media screen and (orientation: portrait){
