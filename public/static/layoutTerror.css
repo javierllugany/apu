@@ -167,17 +167,17 @@ h2{
 .seccionReserva{
   display: grid;
   grid-template-columns: auto auto;
-  grid-column-gap: 5vw;
+  grid-column-gap: 10vw;
   justify-content: center;
   background-color: #1e0501;
   padding: 1.5vh;
-  margin: 1.5vh 0 2vh;
+  margin: 1.5vh 0 0;
 }
 
-#textoReserva{
+.textoReserva{
   grid-column: 1/2;
   font-family: "ModestoTexto";
-  text-align: right;
+  text-align: center;
   align-self: center;
   font-size: 2.5vh;
 }
@@ -187,7 +187,7 @@ h2{
   flex-direction: row;
 }
 
-#reserva{
+.reserva{
   grid-column: 2/3;
   border:solid;
   border-width: 2px;
@@ -202,12 +202,12 @@ h2{
   align-items:center;
 }
 
-#reserva:hover {
+.reserva:hover {
   border-color: black;
   cursor:pointer;
 }
 
-#logoWhatsApp{
+.logoWhatsApp{
   width: 6vh;
 }
 
@@ -216,27 +216,55 @@ h2{
   justify-content: center;
 }
 
+#pag2{
+  display: grid;
+  justify-content: center;
+  background-color: #e3e4c4;
+  padding-bottom: 5vh;
+}
+
+#pagIntermedia{
+  display: grid;
+  justify-content: center;
+  background: linear-gradient(to bottom, black 50%, #e3e4c4 50%);
+}
+
 h3{
   font-family: "ModestoFecha";
   text-align: center;
   font-size: 2.5vh;
   margin-bottom: 2vh;
+  margin-top: 2vh;
 }
 
 .programa1{
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: max-content auto auto;
   background-color: #e3e4c4;
   width: 90vw;
   font-family: "ModestoFecha";
   padding: 2vh 0 2vh;
-  margin: 0 5vw 5vh;
+  margin: 0 5vw 0;
+  align-items: last baseline;
+}
+
+#pagIntermedia div.programa1{
+  background-color: white;
+  border-style: solid;
+  border-color: black;
+  border-width: 1.5px;
 }
 
 .programa1A{
   color: black;
   font-size: 6vh;
   margin-left: 4vh;
+}
+
+.programa1AA{
+  color: black;
+  font-size: 8vh;
+  margin-left: 2vw;
 }
 
 .programa1B{
@@ -253,7 +281,7 @@ h3{
                       "director texto";
   grid-template-columns: 35vw 50vw;
   grid-gap: 5vw;
-  padding: 0 5vw 2.5vh;
+  padding: 5vh 5vw 2.5vh;
 }
 
 .portadaPelicula{
@@ -302,15 +330,21 @@ hr{
   width: 90vw;
   margin: 0 5vw 3vh;
   border-color: #e3e4c4;
+  color: #e3e4c4;
 }
 
+#pag2 div div p.genero,
+#pag2 div div p.tituloPelicula,
+#pag2 div div p.sinopsis,
+#pag2 div div p.director,
+#pag2 div div p.duracion,
+#pag2 div div p.nombreDirector,
+#pag2 div div p.tiempoDuracion{
+  color: black;
+}
 
-
-#logoApu{
-  display: none;
-  justify-self: center;
-  width: 20vw;
-  margin: 4vh 0 2vw;
+#pag2 hr{
+  border-color: black;
 }
 
 #ubicacion{
@@ -320,13 +354,51 @@ hr{
 
 #ubicacion .mapaMediano{
   display: block;
-  width: 90%;
+  width: 90vw;
   padding-left: auto;
   padding-right: auto;
+  margin-bottom: 7vh;
 }
 
 #ubicacion .mapaChico{
   display: none;
+}
+
+.creditos{
+  display: grid;
+  grid-template-areas: "invitan invitan apoyo apoyo"
+                        "vereda apu inca inca";
+  grid-template-columns: 30vw 10vw 20vw 20vw;
+  justify-content: center;
+  grid-row-gap: 2vh;
+  margin-top: 9vh;
+  margin-bottom: 5vh;
+  text-align: center;
+}
+
+.creditos img{
+  width: 90%;
+}
+
+.invitan{
+  grid-area: invitan;
+}
+
+.apoyo{
+  grid-area: apoyo;
+}
+
+.logoVereda{
+  grid-area: vereda;
+}
+
+.logoClubApu{
+  grid-area: apu;
+}
+
+.logoGobierno{
+  grid-area: inca;
+  justify-self: end;
 }
 
 @media screen and (orientation: portrait){
@@ -338,10 +410,7 @@ hr{
 
   #ubicacion .mapaChico{
     display: block;
-    width: 90%;
-  }
-
-  #logoApu{
-    display: none;
+    width: 90vw;
+    margin-bottom: 7vh;
   }
 }
