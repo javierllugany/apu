@@ -1,109 +1,91 @@
-const fs = require('fs').promises;
+//dependencias
+const express = require('express'); //biblioteca que construye un servidor
+const app = express();
+// const mongoose = require('mongoose'); (para conectar a base de datos MongoDB)
+const dotenv = require('dotenv');
+const mongoose = require('mongoose');
+const http = require('http');
+const fs = require('fs');
 const path = require('path');
-const process = require('process');
-const {authenticate} = require('@google-cloud/local-auth');
-const {google} = require('googleapis');
 
-// If modifying these scopes, delete token.json.
-const SCOPES = ['https://www.googleapis.com/auth/drive.metadata.readonly', 'https://www.googleapis.com/auth/drive.file', 'https://www.googleapis.com/auth/drive.readonly', 'https://www.googleapis.com/auth/drive'];
+//initializa dotenv:
+dotenv.config();
 
-// The file token.json stores the user's access and refresh tokens, and is
-// created automatically when the authorization flow completes for the first
-// time.
-const TOKEN_PATH = path.join(process.cwd(), 'token.json');
-const CREDENTIALS_PATH = path.join(process.cwd(), 'credentials.json');
+//Import routes
+const fpRoute = require('./routes/public');
+const adminRoute = require('./routes/admin');
+const auth = require('./routes/auth');
 
-/**
- * Reads previously authorized credentials from the save file.
- *
- * @return {Promise<OAuth2Client|null>}
- */
-async function loadSavedCredentialsIfExist() {
-  try {
-    const content = await fs.readFile(TOKEN_PATH);
-    const credentials = JSON.parse(content);
-    return google.auth.fromJSON(credentials);
-  } catch (err) {
-    return null;
+//Route Middlewares
+app.use(express.json({limit: '50mb'}));
+// app.use('/admin',adminRoute);
+app.use('/',fpRoute);
+app.use('/admin',auth,adminRoute)
+
+// Ruta para manejar subpáginas dinámicamente
+app.get('/:subpagina', (req, res) => {
+     const subpagina = req.params.subpagina;
+     app.use(`/${subpagina}`, fpRoute);
+});
+
+//serving static-files for test-purpose / can be served directly by nginx
+app.use('/public', express.static('./public'));
+
+mongoose.set('useCreateIndex', true);
+// Intenta la primera conexión a mongodb
+mongoose.connect(process.env.DB_CONNECT,
+  { useNewUrlParser: true, useUnifiedTopology: true },
+  (err) => {
+  if (err) {
+    console.log('Error - No pudo conectarse a la base de datos 1:', err);
+    // Si la conexión falla, se intenta la segunda conexión
+    secondConnection();
+  } else {
+    console.log('Conectado a la base de datos 1');
   }
+});
+function connect2() {
+  mongoose.connect(process.env.DB_CONNECT2,
+    { useNewUrlParser: true, useUnifiedTopology: true },
+    (err) => {
+    if (err) {
+      console.log('Error - No pudo conectarse a la base de datos 2:', err);
+    } else {
+      console.log('Conectado a la base de datos 2');
+    }
+  });
 }
 
-/**
- * Serializes credentials to a file comptible with GoogleAUth.fromJSON.
- *
- * @param {OAuth2Client} client
- * @return {Promise<void>}
- */
-async function saveCredentials(client) {
-  const content = await fs.readFile(CREDENTIALS_PATH);
-  const keys = JSON.parse(content);
-  const key = keys.installed || keys.web;
-  const payload = JSON.stringify({
-    type: 'authorized_user',
-    client_id: key.client_id,
-    client_secret: key.client_secret,
-    refresh_token: client.credentials.refresh_token,
-  });
-  await fs.writeFile(TOKEN_PATH, payload);
-}
+const PORT = process.env.PORT;
+app.listen(PORT,() => console.log('server up and running at port',PORT));
 
-/**
- * Load or request or authorization to call APIs.
- *
- */
-async function authorize() {
-  let client = await loadSavedCredentialsIfExist();
-  if (client) {
-    return client;
-  }
-  client = await authenticate({
-    scopes: SCOPES,
-    keyfilePath: CREDENTIALS_PATH,
-  });
-  if (client.credentials) {
-    await saveCredentials(client);
-  }
-  return client;
-}
+/*
+const fotosDrive = require('./scriptDrive.js');
+fotosDrive.init();
+*/
 
-/**
- * Lists the names and IDs of up to 10 files.
- * @param {OAuth2Client} authClient An authorized OAuth2 client.
- */
-async function listFiles(authClient) {
-  const drive = google.drive({version: 'v3', auth: authClient});
-  const res = await drive.files.list({
-    pageSize: 10,
-    fields: 'nextPageToken, files(id, name)',
-  });
-  const files = res.data.files;
-  if (files.length === 0) {
-    console.log('No files found.');
-    return files;
-  }
-
-  console.log('Files:');
-  files.map((file) => {
-    console.log(`${file.name} (${file.id})`);
-  });
-  console.log("Hello world!!");
-
-  const realFileId="1cuhoAuE5RFA7I2ETHfhH8hVhl_RbFyyJ"
-  //const realFileId=res.data.files.name["datosFotosAPU.json"]; //estoy intentando que lea el arhivo por su nombre y no por su id
-  console.log("viene la exportacion");
-  fileId = realFileId;
-  try {
-    const archivoJson = await drive.files.get({
-      fileId: fileId,
-      alt: 'media',
+/* // ESTO ES CON la dependencia HTTP y sirve mas que nada para paginas estaticas
+const server = http.createServer((req, res) => {
+  if (req.method === 'GET' && req.url === '/') {
+  //    Lee el contenido del archivo "index.html"
+    const filePath = path.join(__dirname, 'index.html');
+    fs.readFile(filePath, 'utf8', (err, data) => {
+      if (err) {
+        res.writeHead(500, { 'Content-Type': 'text/plain' });
+        res.end('Error interno del servidor');
+      } else {
+        res.writeHead(200, { 'Content-Type': 'text/html; charset=UTF-8' });
+        res.end(data);
+      }
     });
-    console.log(archivoJson.status);
-    console.log(archivoJson);
-    return archivoJson;
-  } catch (err) {
-    // TODO(developer) - Handle error
-    throw err;
+  } else {
+    res.writeHead(404, { 'Content-Type': 'text/plain' });
+    res.end('Página no encontrada');
   }
-}
+});
+const PORT = 4000; // esto funciona si no está instalada la dependencia dotenv
+const PORT = process.env.PORT || 4000; //esto funciona con dotenv y sin dotnev
 
-authorize().then(listFiles).catch(console.error);
+server.listen(PORT, () => {
+  console.log(`Servidor en ejecución en el puerto ${PORT}`);
+}); */

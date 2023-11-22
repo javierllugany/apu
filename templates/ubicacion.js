@@ -1,0 +1,77 @@
+const template = function(data){
+  
+    let raw = `
+    <!DOCTYPE html>
+    <html lang="es" dir="ltr">
+      <head>
+        <meta charset="utf-8">
+        <title>APU Mapa/Contacto</title>
+        <link rel="shortcut icon" href="public/static/logos/APU-icon.png" type="image/png">
+        <link rel="stylesheet" href="public/static/layout.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap" rel="stylesheet">
+      </head>
+      <body>
+        <header class="pagUbicacion">
+          <div id="pagPresentacion">
+            <h1>APU CONTACTO y UBICACION</h1>
+            <input type="checkbox" id="checkboxHamburguesa" onclick="" name="" value="">
+            <label for="checkboxHamburguesa" id="menuON">
+              <span></span>
+              <span></span>
+              <span></span>
+            </label>
+            <label id="botonLogo" class="botonLogoUbi" for="checkboxHamburguesa"></label>
+            <img id="LogoApu" src="../public/static/logos/Logo-APU.png" alt="Logo de Apu">
+            <nav class="MenuDesplegable">
+      				<ul class="MenuDesplegable1">
+                <li><a id="inicio" href="/">INICIO</a>
+                </li>
+      					<li><a id="actividades" href="#actividades">ACTIVIDADES</a>
+                  <ul class="submenu">
+                    <li><a href="talleres.html">TALLERES</a></li>
+                    <li><a href="">EVENTOS</a></li>
+                    <li><a href="">AGENDA</a></li>
+                  </ul>
+                </li>
+      					<li><a id="contenidos" href="#contenidos">CONTENIDOS</a>
+      						<ul class="submenu">
+      							<li><a href="">YOUTUBE</a></li>
+      							<li><a href="">PODSCATS</a></li>
+      						</ul>
+      					</li>
+      					<li><a id="quienes" href="#quienes">QUIENES SOMOS</a>
+      						<ul class="submenu">
+      							<li><a href="">HISTORIA</a></li>
+      							<li><a href="">ASOCIACION</a></li>
+                    <li><a href="">COMO CONTRIBUIR</a></li>
+      						</ul>
+      					</li>
+      				</ul>
+      			</nav>
+            <div class="textoUbicacion">
+              <p>Ruta 89 s/n - Las Vegas - Potrerillos<br>Mendoza - ARGENTINA<br>
+              Mail: <a href="mailto:apuclubdelmonte@gmail.com">apuclubdelmonte@gmail.com</a><br>
+              Tel: <a href="tel:+5492613347020">261-3347020</a></p>
+            </div>
+            <div class="SocialLink">
+              <a class="social-link-fb" href="https://www.facebook.com/apuclubsocialydeportivo" target="_blank" rel="noopener"><img src="../public/static/logos/f_logo_RGB-Black_250.png" alt="enlace a Facebook">
+              </a>
+              <a class="social-link-in" href="http://www.instagram.com/apuclubdemonte" target="_blank" rel="noopener"><img src="../public/static/logos/glyph-logo_May2016.png" alt="enlace a Instagram">
+              </a>
+              <a id="subscribe-button" href="https://api.whatsapp.com/send?phone=+5492613347020&text=Hola,+quiero+información+sobre+cómo+colaborar+con+el+APU" target="_blank">Asociate</a>
+            </div>
+            <div class="ubicacion">
+                  <iframe class="mapaMediano" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d214110.72537794744!2d-69.53744888305664!3d-33.01748018770446!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x967deb64c38e7955%3A0x95f8a56ba326cc7d!2sAPU%20CLUB%20DE%20MONTA%C3%91A!5e0!3m2!1ses-419!2ses!4v1654770682182!5m2!1ses-419!2ses" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                  <iframe class="mapaChico" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3345.479773075291!2d-69.27597878446946!3d-33.017488382808594!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x967deb64c38e7955%3A0x95f8a56ba326cc7d!2sAPU%20CLUB%20DE%20MONTA%C3%91A!5e0!3m2!1ses-419!2ses!4v1655377239226!5m2!1ses-419!2ses" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+          </div>
+        </header>
+      </body>
+    </html>
+    `;
+    return raw;
+}
+
+module.exports = template;

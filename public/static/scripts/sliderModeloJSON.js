@@ -773,7 +773,9 @@ let textjson= [
         "folder": "salon",
         "filename": "DSC07732.JPG",
         "directLink": "https://drive.google.com/uc?id=19CEKmhCrQB2hwGYH7BFy7betFRzDiuDc&export=download"
-      },
+      }
+      ];
+let textjson1= [
       {
         "folder": "salon",
         "filename": "DSC07731.JPG",
@@ -791,11 +793,16 @@ let textjson= [
       }
     ];
 
- let accesoJsonFotos = function() {
-      const textoJsonJs = JSON.parse(textjson);
-      console.log(this.textjson);
-      const arrayFestCine = textjson["Festival de Cine 2023"];
-      document.getElementById("demo").innerHTML = arrayFestCine[0];
+ async function accesoJsonFotos() {
+     console.log("empieza funcion accesoJsonFotos!!!");
+    //  const textoJsonJs = JSON.parse(textjson); // Está mal porque la variable textjson ya es un arreglo de objetos, no necesito parsearla.
+      console.log(textjson1);
+      // const arrayFestCine = textjson1[]["actividades"];
+      const primerObjeto = textjson1[0];
+      console.log("revisar imagen en id demo!!!");
+      //console.log(arrayFestCine);
+      console.log(primerObjeto);
+      document.getElementById("demo").innerHTML = primerObjeto.directLink;
       }
 
 //    getText("../datosFotosAPU.json");
@@ -856,7 +863,7 @@ let textjson= [
 
 
 async function listaDeFotos(){
-  console.log("empieza!!!");
+  console.log("empieza funcion listaDeFotos!!!");
   // let response = await fetch('./datosFotosAPU.json')
   // let dataobj
   // if(response.ok){
@@ -878,6 +885,7 @@ async function listaDeFotos(){
   //weathercarusel()
 console.log("HOLA slider!!");
 this.listaDeFotos()
+this.accesoJsonFotos()
 
 //
 // request.onload = function() {

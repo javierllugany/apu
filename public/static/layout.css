@@ -12,11 +12,19 @@
 }
 
 header{
-  background-image: url("../../design/BackgroundMontañasTierra.png"), linear-gradient(to bottom, rgba(191, 181, 90, 1) 49%, rgba(191, 181, 90, 1) 1%, rgb(255, 152, 68) 1%, rgb(255, 152, 68) 49%);
+  background-image: url("/public/files/boho-art-7687374_1280.jpg");
   background-repeat: no-repeat, no-repeat;
   background-position-x: 0vw, center;
   background-position-y: -2vh, bottom;
   background-size: 100%;
+}
+
+a{
+  color: black;
+}
+
+a:hover{
+	color: rgb(238, 214, 135);
 }
 
 h1{
@@ -110,10 +118,8 @@ input[type="checkbox"]:checked ~ nav.MenuDesplegableModeloSuppag {
   position:relative;
 }
 
-input[type="checkbox"]:checked ~ #LogoApu,
-input[type="checkbox"]:checked ~ #botonLogo {
-  opacity: 0.5;
-  transform: translateX(20vw);
+input[type="checkbox"]:checked ~ label.botonLogoUbi {
+  transform: translateX(-10000px);
 }
 
 input[type="checkbox"]:checked ~ #LogoApuModeloSubpag,
@@ -176,7 +182,7 @@ nav.MenuDesplegable{
 	width: 30vw;
 	z-index: 5;
 	padding: 7vw 2vw 2vw;
-	background: rgba(104, 197, 219, 0.3);
+	background: rgba(161, 134, 123, 0.7);
 	transition: all 0.50s ease;
 	font-size: 1.4vw;
 	overflow-y: auto;
@@ -186,7 +192,6 @@ nav.MenuDesplegable a{
 	display:block;
 	text-decoration: none;
 	padding: 1.5vh 1vw 1vh;
-	color: rgba(255,255,255,1);
 	transition: all ease 0.25s;
   font-weight: bold;
   font-size: 1em;
@@ -195,10 +200,6 @@ nav.MenuDesplegable a{
 
 nav.MenuDesplegable li{
 	position: relative;
-}
-
-nav.MenuDesplegable a:hover{
-	color: rgb(238, 214, 135);
 }
 
 ul.submenu{
@@ -228,7 +229,7 @@ ul.submenu:hover{
 }
 
 div.SocialLink{
-  background-color: rgb(167, 111, 46);
+  background-color: rgba(149, 131, 117, 0.7);
   display: grid;
   justify-items: center;
   align-content: end;
@@ -242,7 +243,6 @@ div.SocialLink{
 
 div.SocialLink a{
   width: 3vw;
-  color: black;
   text-decoration: none;
   font-weight: bold;
   font-size: 1vw;
@@ -255,7 +255,6 @@ div.SocialLink img{
 
 a#subscribe-button{
   text-decoration: none;
-  color: white;
   font-size: 1.4vw;
   letter-spacing: 1.1vw;
   word-wrap: break-word;
@@ -267,6 +266,9 @@ a#subscribe-button{
   margin-left: 2vw;
   overflow: clip;
 }
+.proximasActividades h2 {
+  font-size: 2em;
+}
 .listaActividades{
   display: grid;
   grid-template-rows: 1fr 1fr;
@@ -276,9 +278,9 @@ a#subscribe-button{
   display: grid;
   grid-template-areas: "foto titulo"
   "foto resumen";
-  margin: 1vh 2vh 1vh 0;
-  grid-template-rows: 1fr 2fr;
-  grid-gap: 3vh;
+  margin: 3vh 2vh 1vh 0;
+  grid-template-rows: auto 1fr;
+  grid-gap: 2vh;
   overflow: clip;
   text-align: left;
   grid-template-columns: max-content;
@@ -287,8 +289,13 @@ a#subscribe-button{
   grid-area: titulo;
   font-size: 1.5em;
 }
+
+.proximasActividades li a:hover{
+	color: rgb(164, 136, 42);
+}
+
 .proximasActividades img{
-  width: 15vw;
+  width: 26vw;
   grid-area: foto;
   overflow: clip;
 }
@@ -300,16 +307,22 @@ a#subscribe-button{
   grid-area: fotos;
   overflow: hidden;
   display: grid;
+  background-color: #896f6d73;
+  border-color: #896f6d;
+  margin: 2vh;
+  border-style: solid;
+  border-width: 2vh;
+  height: 50vh;
 }
 
-div #marcoPrimero{
-  width: 34vw;
-  align-self: center;
+.proyeccionFotos li{
+  display: grid;
+  justify-items: center;
 }
 
 .proyeccionFotos img{
-  width: 100%;
-  height: auto;
+  width: auto;
+  height: 46vh;
 }
 
 .proyeccionFotos img.opacidad{
@@ -362,9 +375,8 @@ div#sliderModelo img{
 
   header{
     background-position-y: 12vh, bottom;
-    background-image: url("../../design/BackgroundMontañasTierra.png"),
-    linear-gradient(to bottom, rgb(191, 181, 90) 40vh, rgb(191, 181, 90) 1%,
-    rgb(255, 152, 68) 1%, rgb(255, 152, 68) 49%);
+    background-image: url("../../design/boho-art-7687374_1280.jpg"),
+    linear-gradient(to bottom, #827e73 40vh, #827e73 1%, #cbbfa5 1%, #cbbfa5 49%);
   }
 
   div#pagPresentacion{
@@ -411,7 +423,6 @@ div#sliderModelo img{
   }
 
   input[type="checkbox"]:checked ~ nav.MenuDesplegable {
-    grid-area: logo/logo/fotos/logo;
     width: 100%;
   }
 
@@ -421,7 +432,6 @@ div#sliderModelo img{
   	left:-85vw; /* Escondemos nuestro menú con un valor negativo */
   	width: 85vw;
   	padding: 9vw 4vw 2vw;
-  	background: rgba(104, 197, 219, 0.5);
   	font-size: 4vw;
   }
 
@@ -465,19 +475,17 @@ div#sliderModelo img{
     height: 36vh;
   }
 
-  div #marcoPrimero{
-    width: 80%;
-    height: auto;
-    justify-self: center;
-    align-self: center;
+  .proyeccionFotos img {
+  height: 32vh;
   }
+
 div.proximasActividades{
   margin-left: 4vw;
   overflow: auto;
 }
 
 div.proximasActividades h2{
-	font-size: 1em;
+	font-size: 2em;
 }
 
 ul.listaActividades {
@@ -491,16 +499,20 @@ ul.listaActividades {
 	grid-template-rows: auto auto;
 	grid-gap: 1.5vh;
 	overflow: auto;
-	text-align: left;
 	grid-template-columns: auto auto;
 }
 
+.proximasActividades a {
+  grid-area: titulo;
+}
+
 .proximasActividades h3 {
-	font-size: 1em;
+  font-size: 1.6em;
+  text-align: center;
 }
 
 .proximasActividades img {
-    width: 36vw;
+    width: 45vw;
     overflow: clip;
 }
 
@@ -543,10 +555,10 @@ div.textoUbicacion{
   grid-area: logo;
   justify-self: end;
   text-align: right;
-  margin: 4vw 10vw auto auto;
+  margin: 10vw 10vw auto auto;
   font-size: 2.5vh;
-  line-height: 4vw;
-  transition: all 0.50s ease;
+  line-height: 4vh;
+  font-weight: bold;
 }
 
 div.textoUbicacionModelosubpag {
@@ -556,10 +568,6 @@ div.textoUbicacionModelosubpag {
   font-size: 1.5vh;
   line-height: 2.5vw;
   margin: 4vw 5vw auto auto;
-}
-
-input[type="checkbox"]:checked ~ div.textoUbicacion{
-  font-size: 2vh;
 }
 
 div.ubicacion{
@@ -610,6 +618,7 @@ div.textoUbicacion {
 	text-align: left;
 	margin: 4vw auto auto 4vw;
 	font-size: 2vh;
+  line-height: 3vh;
 }
 
   /*  .pagUbicacion div#pagPresentacion{
