@@ -31,3 +31,7 @@ vendor
 Gemfile.lock
 node_modules
 excludeAPU.rsync
+.env
+token.json
+credentials.json
+.gitignore
