@@ -34,4 +34,3 @@ excludeAPU.rsync
 .env
 token.json
 credentials.json
-.gitignore
