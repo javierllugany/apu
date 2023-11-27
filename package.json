@@ -37,6 +37,7 @@
     "is-stream": "^2.0.1",
     "is-wsl": "^2.2.0",
     "json-bigint": "^1.0.0",
+    "jsonwebtoken": "^9.0.2",
     "jwa": "^2.0.0",
     "jws": "^4.0.0",
     "lru-cache": "^6.0.0",

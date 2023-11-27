@@ -3,10 +3,8 @@ const raw = {
   ubicacion: require('./templates/ubicacion.js'),
   cineTerror: require('./templates/cineTerror.js'),
   modeloSubpagina: require('./templates/modeloSubpagina.js'),
-  form:{
-      admin: require('./templates/admin.js'),
-      actividad: require('./templates/actividad.js'),
-      },
+  login: require('./templates/login.js'),
+  admin: require('./templates/admin.js'),
 }
 
 const templates = {
