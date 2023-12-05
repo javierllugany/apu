@@ -13,7 +13,7 @@ const template = function(data){
         <link rel="stylesheet" href="public/static/layout.css">
       <!--  <link rel="stylesheet" type="text/css"  href="/public/static/layout.css">-->
         <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <!-- <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> -->
         <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap" rel="stylesheet">
         <!--<script type="module" src="/index.js"></script>-->
       </head>
@@ -30,31 +30,31 @@ const template = function(data){
             <label id="botonLogo" for="checkboxHamburguesa"></label>
             <img id="LogoApu" src="public/static/logos/Logo-APU.png" alt="Logo de Apu">
             <nav class="MenuDesplegable">
-      				<ul class="MenuDesplegable1">
-      					<li><a id="actividades" href="#actividades">ACTIVIDADES</a>
+              <ul class="MenuDesplegable1">
+                <li><a id="actividades" href="#actividades">ACTIVIDADES</a>
                   <ul class="submenu">
-                    <li><a href="design/talleres.html">TALLERES</a></li>
-                    <li><a href="design/cineTerror.html">EVENTOS</a></li>
-                    <li><a href="/modeloSubpagina">AGENDA</a></li>
+                    <li><a href="/modeloSubpagina">TALLERES</a></li>
+                    <li><a href="/modeloSubpagina">EVENTOS</a></li>
+                    <li style="display: none;"><a href="/modeloSubpagina">AGENDA</a></li>
                   </ul>
                 </li>
-      					<li><a id="contenidos" href="#contenidos">CONTENIDOS</a>
-      						<ul class="submenu">
-      							<li><a href="">YOUTUBE</a></li>
-      							<li><a href="">PODSCATS</a></li>
-      						</ul>
-      					</li>
-      					<li><a id="quienes" href="#quienes">QUIENES SOMOS</a>
-      						<ul class="submenu">
-      							<li><a href="">HISTORIA</a></li>
-      							<li><a href="">ASOCIACION</a></li>
+                <li style="display: none;"><a id="contenidos" href="#contenidos">CONTENIDOS</a>
+                  <ul class="submenu">
+                    <li><a href="">YOUTUBE</a></li>
+                    <li><a href="">PODSCATS</a></li>
+                  </ul>
+                </li>
+                <li style="display: none;"><a id="quienes" href="#quienes">QUIENES SOMOS</a>
+                  <ul class="submenu">
+                    <li><a href="">HISTORIA</a></li>
+                    <li><a href="">ASOCIACION</a></li>
                     <li><a href="">COMO CONTRIBUIR</a></li>
-      						</ul>
-      					</li>
+                  </ul>
+                </li>
                 <li><a id="contacto" href="/ubicacion">CONTACTO<br>UBICACION</a>
                 </li>
               </ul>
-      			</nav>
+            </nav>
             <div class="SocialLink">
               <a class="social-link-fb" href="https://www.facebook.com/apuclubsocialydeportivo" target="_blank" rel="noopener"><img src="public/static/logos/f_logo_RGB-Black_250.png" alt="enlace a Facebook">
               </a>
@@ -75,9 +75,6 @@ const template = function(data){
                   <img src="public/files/materialParaWebTerror/imgPortada.png" alt="">
                   <p>Presentaremos seis producciones de realizadores mendocinos basadas en el género de terror.<br>
                   Acercate al Club APU y disfrutá del mejor cine!</p>
-                </li>
-                <li>
-                  ${listaAgenda}
                 </li>
               </ul>
             </div>

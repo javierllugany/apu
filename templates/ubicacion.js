@@ -1,16 +1,16 @@
 const template = function(data){
-  
+
     let raw = `
     <!DOCTYPE html>
     <html lang="es" dir="ltr">
       <head>
         <meta charset="utf-8">
         <title>APU Mapa/Contacto</title>
-        <link rel="shortcut icon" href="public/static/logos/APU-icon.png" type="image/png">
-        <link rel="stylesheet" href="public/static/layout.css">
+        <link rel="shortcut icon" href="../public/static/logos/APU-icon.png" type="image/png">
+        <link rel="stylesheet" href="../public/static/layout.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap" rel="stylesheet">
+        <!-- <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> -->
+        <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap" rel="stylesheet">
       </head>
       <body>
         <header class="pagUbicacion">
@@ -30,18 +30,18 @@ const template = function(data){
                 </li>
       					<li><a id="actividades" href="#actividades">ACTIVIDADES</a>
                   <ul class="submenu">
-                    <li><a href="talleres.html">TALLERES</a></li>
+                    <li><a href="">TALLERES</a></li>
                     <li><a href="">EVENTOS</a></li>
-                    <li><a href="">AGENDA</a></li>
+                    <li style="display: none;"><a href="">AGENDA</a></li>
                   </ul>
                 </li>
-      					<li><a id="contenidos" href="#contenidos">CONTENIDOS</a>
+      					<li style="display: none;"><a id="contenidos" href="#contenidos">CONTENIDOS</a>
       						<ul class="submenu">
       							<li><a href="">YOUTUBE</a></li>
       							<li><a href="">PODSCATS</a></li>
       						</ul>
       					</li>
-      					<li><a id="quienes" href="#quienes">QUIENES SOMOS</a>
+      					<li style="display: none;"><a id="quienes" href="#quienes">QUIENES SOMOS</a>
       						<ul class="submenu">
       							<li><a href="">HISTORIA</a></li>
       							<li><a href="">ASOCIACION</a></li>

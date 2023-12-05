@@ -28,15 +28,21 @@ router.get('/cineTerror', async (req,res)=>{
   }
 });
 
-router.get('/modeloSubpagina', async (req,res)=>{
-  try {
-    let data = await datacontroler.modeloSubpagina();
-    response = templates.buildPage('modeloSubpagina',data);
-    res.send(response);
-  } catch (e) {
-    console.warn(e);
-    res.status(400).send('oops, something went wrong del public');
-  }
+router.get('/talleres', async (req,res)=>{
+      try{
+        let result = ''
+        let data = await datacontroler.talleres()
+        if(!data){
+          res.status(404).send('oops, not found')
+          return;
+        }
+
+        result = templates.buildPage('talleres', {data:data})
+        res.send(result)
+      }catch(e){
+        console.log(e)
+        res.status(400).send('an error occured')
+      }
 });
 
 router.get('/ubicacion', async (req,res)=>{

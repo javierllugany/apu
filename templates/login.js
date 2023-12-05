@@ -1,6 +1,6 @@
 const template = function(data){
 
-    let listaAgenda=data.articulo1
+    //let listaAgenda=data.articulo1
 
     let raw = `
     <!DOCTYPE html>
@@ -11,28 +11,22 @@ const template = function(data){
         <link rel="shortcut icon" href="../public/static/logos/APU-icon.png" type="image/png">
         <link rel="stylesheet" href="../public/static/layout.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <!-- <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> -->
         <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap" rel="stylesheet">
       </head>
       <body>
         <header id="modeloSubpag">
-          <form class="password" action="/login" method="post">
+          <form class="password" action="/loginAdmin" method="post">
               <div class="password">
                 <label for="password">Contraseña</label>
                 <input type="password" name="password" id="password" required>
                 <button id="verpassword" type="button">👁</button>
               </div>
-              <div class="proximasActividades">
-                <ul class="listaActividades">
-                  <li>
-                    ${listaAgenda} en Login
-                  </li>
-                </ul>
-              </div>
               <input class="botonFinal" id="botonFinalInicio" type="submit" class="submit" value="Iniciar Sesión">
           </form>
         </header>
       </body>
+      <script src='/public/static/scripts/verpassword.js'></script>
     </html>
     `;
     return raw;

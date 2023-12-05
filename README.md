@@ -1,2 +1,2 @@
 # APU
-Web del APU hecha en Atom y gitHub
+Web del Club de Montaña APU

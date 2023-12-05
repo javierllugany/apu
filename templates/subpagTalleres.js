@@ -1,7 +1,35 @@
-const template = function(data){
+const template = function(talleres){
+    let data = talleres.data
+    let lista = ''
+    for(let x=0;x<data.length;x++){
+      let taller = data[x]
+      let img = ''
+      let titulo = taller.titulo
+      let horario = taller.horario
+      let tallerista = taller.tallerista
+      let descripcion = taller.descripcion
+      if(taller.images[0]){
+        img = `<img src="${taller.images[0].url}" alt="${taller.images[0].title}">`
+      }
+      lista+=`  <li>
+            ${img}
+          <h3><a href="/taller/${taller._id}">
+            ${titulo}
+          </a></h3>
+          <div class="horario">${horario}
+            <div class="tallerista">
+            Por ${tallerista}
+            </div>
+          </div>
+          <div class="descripcion">
+            ${descripcion}
+          </div>
+        </li>
+      `
+    }
 
     let raw = `
-  <!DOCTYPE html>
+    <!DOCTYPE html>
     <html lang="es" dir="ltr">
       <head>
         <meta charset="utf-8">
@@ -13,7 +41,7 @@ const template = function(data){
         <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap" rel="stylesheet">
       </head>
       <body>
-        <header id="modeloSubpag">
+        <header id="modeloSubpag" class="talleres">
           <div id="pagPresentacion">
             <h1 class="h1modeloSubpag">TALLERES en el APU</h1>
             <input type="checkbox" id="checkboxHamburguesa" onclick="" name="" value="">
@@ -24,24 +52,24 @@ const template = function(data){
             </label>
             <label id="botonLogoModeloSubpag" for="checkboxHamburguesa"></label>
             <img id="LogoApuModeloSubpag" src="../public/static/logos/Logo-APU.png" alt="Logo de Apu">
-            <nav class="MenuDesplegable MenuDesplegableModeloSuppag">
+            <nav class="MenuDesplegable MenuDesplegableModeloSubpag">
       				<ul class="MenuDesplegable1">
                 <li><a id="inicio" href="/">INICIO</a>
                 </li>
       					<li><a id="actividades" href="#actividades">ACTIVIDADES</a>
                   <ul class="submenu">
-                    <li><a href="talleres.html">TALLERES</a></li>
+                    <li><a href="">TALLERES</a></li>
                     <li><a href="">EVENTOS</a></li>
-                    <li><a href="">AGENDA</a></li>
+                    <li style="display: none;"><a href="">AGENDA</a></li>
                   </ul>
                 </li>
-      					<li><a id="contenidos" href="#contenidos">CONTENIDOS</a>
+      					<li style="display: none;"><a id="contenidos" href="#contenidos">CONTENIDOS</a>
       						<ul class="submenu">
       							<li><a href="">YOUTUBE</a></li>
       							<li><a href="">PODSCATS</a></li>
       						</ul>
       					</li>
-      					<li><a id="quienes" href="#quienes">QUIENES SOMOS</a>
+      					<li style="display: none;"><a id="quienes" href="#quienes">QUIENES SOMOS</a>
       						<ul class="submenu">
       							<li><a href="">HISTORIA</a></li>
       							<li><a href="">ASOCIACION</a></li>
@@ -64,27 +92,14 @@ const template = function(data){
               </a>
               <a id="subscribe-button" href="mailto:apuclubdelmonte@gmail.com">Asociate</a>
             </div>
-            <div class="entrada">
-              <h2 class="tituloEntrada">Cierre de Talleres de Cerámica 2022</h2>
-              <img class="imgPrincipal" src="../public/files/tallerCierreCeramica221202/afiche.jpg" alt="afiche del taller">
-              <p class="contenidoEntrada">Algunas fotos de lo que fue el cierre de los talleres de cerámica de adultos y la niñez.<br>
-                Hubo exposición de piezas realizadas durante el año y varias actividades. <br>
-                Compartimos con ustedes este hermoso momento vivido!!</p>
-              <div id="sliderModelo">
-                  <img id="foto1" src="../public/files/imgFrontpage/0.jpg" alt="img 1">
-                  <img src="https://drive.google.com/file/d/1U57IXPCrvNs5-aZJhH1o1zCOcMqSl_Cn/view?usp=share_link" alt="img 2: No anda. esta es la img copiada del enlace que da drive para compartir">
-                  <img src="https://drive.google.com/uc?export=view&id=1U57IXPCrvNs5-aZJhH1o1zCOcMqSl_Cn" alt="img 3: esta es con el enlace transformado usando el ID">
-                  <img src="https://drive.google.com/uc?id=16LHPctU7y6qZJZIDJ8DrcFPVVybPB-N5&export=download" alt="ESTA ES LA BUENA---img 4: enlace con direct link de Drive Explorer en hoja calculo drive">
-                  <img src="https://drive.google.com/uc?id=16LHPctU7y6qZJZIDJ8DrcFPVVybPB-N5&export=view" alt="img 5: enlace con previuw link de Drive Explorer en hoja calculo drive">
-              </div>
-              <div class="text">
-                <p id="demo"></p>
-              </div>
+            <div class="talleres">
+              <ul>
+                ${lista}
+              </ul>
             </div>
           </div>
         </header>
-        <script type="text/javascript" src="/public/static/scripts/sliderModeloJSON.js"></script>
-        <script type="text/javascript" src="/public/static/scripts/scriptCreadorDeFotosJson.js"></script>
+        <script type="text/javascript" src="../public/static/scripts/sliderModeloJSON.js"></script>
       </body>
     </html>
     `;

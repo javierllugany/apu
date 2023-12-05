@@ -45,7 +45,7 @@ div#pagPresentacion{
   grid-template-rows: 40vh 56vh;
 }
 
-#modeloSubpag div#pagPresentacion{
+.modeloSubpag div#pagPresentacion{
   grid-template-areas:
         "menu logo socialLink"
         "evento evento socialLink"
@@ -55,14 +55,70 @@ div#pagPresentacion{
   overflow: auto;
 }
 
-h1.h1modeloSubpag{
-  grid-area: logo;
-  justify-self: auto;
-  height: auto;
-  margin: auto 5vw 2vh auto;
-  position: relative;
-  left: 0px;
+.modeloSubpag.admin div#pagAdmin{
+  display: grid;
+  grid-template-areas:
+        "titulo menu"
+        "evento evento"
+        "footer footer";
+  grid-template-columns: 3fr 1fr;
+  grid-template-rows: 10vh auto auto;
+}
+
+h2.admin{
+  grid-area: titulo;
   font-size: 3vw;
+  align-self: end;
+  justify-self: center;;
+}
+
+div.topMenu.admin{
+  display: grid;
+}
+
+div.form.admin{
+  grid-area: evento;
+}
+
+div.admin form ul li{
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  grid-column-gap: 2vw;
+  margin-top: 2vh;
+}
+
+input.admin{
+  width: fit-content;
+}
+
+button.botonFinal{
+  margin: 3vh;
+  font-size: 1em;
+  justify-self: right;
+  margin-right: 25vw;
+}
+
+div.topMenu.admin ul{
+  align-self: end;
+  text-align: right;
+  margin-right: 3vh;
+}
+
+div.topMenu.admin ul li{
+  margin-top: 1vh;
+}
+
+div.form.admin form{
+  display: grid;
+}
+
+div.form.admin form ul li label{
+  grid-column: 1/2;
+  text-align: right;
+}
+
+div.form.admin form ul li p{
+  grid-column: 2/3;
 }
 
 #menuON span{
@@ -112,7 +168,7 @@ input[type="checkbox"]:checked ~ nav.MenuDesplegable {
   position:relative;
 }
 
-input[type="checkbox"]:checked ~ nav.MenuDesplegableModeloSuppag {
+input[type="checkbox"]:checked ~ nav.MenuDesplegableModeloSubpag {
   left: 0;
   grid-area: menu;
   position:relative;

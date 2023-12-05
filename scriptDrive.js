@@ -153,5 +153,14 @@ async function listFiles(authClient) {
   //   throw err;
   // }
 }
-authorize().then(reloadFile).catch(console.error);
-authorize().then(listFiles).catch(console.error);
+// authorize().then(reloadFile).catch(console.error);
+// authorize().then(listFiles).catch(console.error);
+// then es una forma obsoleta, se usa await
+async function apu(){
+  try {let resultado= authorize();
+  await reloadFile(resultado);
+  await listFiles(resultado)
+    } catch (e) { console.error();
+  }
+};
+apu()
