@@ -87,8 +87,12 @@ div.admin form ul li{
   margin-top: 2vh;
 }
 
-input.admin{
+input.admin, select.admin{
   width: fit-content;
+}
+
+input#enPaginaInicio{
+  justify-self: left;
 }
 
 button.botonFinal{

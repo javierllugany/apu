@@ -4,38 +4,39 @@ module.exports = function(dataobj){
   let data = dataobj.entrada
   //console.log("data es ", data);
   let x=0;
+  //console.log('linea 7 admin.js tipo es: ', data.tipo)
   let checked = {
-    taller: (data.tipo==='taller') ? 'checked': '',
-    evento: (data.tipo==='evento') ? 'checked': '',
-    frontpage: data.frontpage ? 'checked': '',
+    // taller: (data.tipo==='Taller') ? 'checked': '',
+    // evento: (data.tipo==='Evento') ? 'checked': '',
+    frontpage: (data.frontpage===true) ? 'checked': '',
   }
   // if(dataobj.new){
   //   checked.entrada='checked'
   // }
   let eliminarfotos=''
-  // for(x=0;x<data.fotos.length;x++){
-  //   eliminarfotos+=`<li class="grideliminarfotoyaudio">
-  //     <div>
-  //       <input type="checkbox" id="eliminarfoto${x}" name="eliminarfotos" value="${data.fotos[x].url}">
-  //       <label for="eliminarfoto${x}">Eliminar</label>
-  //       <img class="EditfotosdeEntrada" id="EliminarEditfotosdeEntrada${x}" src="${data.fotos[x].url}" alt="">
-  //     </div>
-  //   </li>`
-  // }
-  let eliminaraudios = ''
-  // for(x=0;x<data.audios.length;x++){
-  //   eliminaraudios+=`<li>
-  //     <input type="checkbox" id="eliminaraudio${x}" name="eliminaraudios" value="${data.audios[x].url}">
-  //     <label for="eliminaraudio${x}">Eliminar</label>
-  //     <div class="Editaudiosyvideos">
-  //       <p class=tituloAudio>${data.audios[x].description}</p>
-  //       <div class="cuadrocontrol">
-  //         <audio src="${data.audios[x].url}" controls=""></audio>
-  //         <a href="${data.audios[x].url}" download>&#9196;</a>
-  //       </div>
-  //     </div>
-  //   </li>`
-  // }
+  for(x=0;x<data.fotos.length;x++){
+    eliminarfotos+=`<li class="grideliminarfotoyaudio">
+      <div>
+        <input type="checkbox" id="eliminarfoto${x}" name="eliminarfotos" value="${data.fotos[x].url}">
+        <label for="eliminarfoto${x}">Eliminar</label>
+        <img class="EditfotosdeEntrada" id="EliminarEditfotosdeEntrada${x}" src="${data.fotos[x].url}" alt="">
+      </div>
+    </li>`
+  }
+  let eliminaraudios=''
+  for(x=0;x<data.audios.length;x++){
+    eliminaraudios+=`<li>
+      <input type="checkbox" id="eliminaraudio${x}" name="eliminaraudios" value="${data.audios[x].url}">
+      <label for="eliminaraudio${x}">Eliminar</label>
+      <div class="Editaudiosyvideos">
+        <p class=tituloAudio>${data.audios[x].description}</p>
+        <div class="cuadrocontrol">
+          <audio src="${data.audios[x].url}" controls=""></audio>
+          <a href="${data.audios[x].url}" download>&#9196;</a>
+        </div>
+      </div>
+    </li>`
+  }
   let videolink = ''
   if(data.videolink && data.videolink.url)videolink = data.videolink.url
   let raw = `
@@ -46,6 +47,7 @@ module.exports = function(dataobj){
       <title>APU Admin</title>
       <link rel="shortcut icon" href="../public/static/logos/APU-icon.png" type="image/png">
       <link rel="stylesheet" href="../public/static/layout.css">
+      <script src="/public/static/scripts/fileuploadstepper.js"></script>
       <link rel="preconnect" href="https://fonts.googleapis.com">
       <!-- <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> -->
       <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap" rel="stylesheet">
@@ -68,16 +70,14 @@ module.exports = function(dataobj){
               <ul>
                 <li>
                   <label>Tipo</label>
-                  <div class="tipo">
-                    <input id="taller" type="radio" name="tipo" value="" ${checked.taller}>
-                    <label for="taller" class="tallerlabel">Taller</label>
-                    <input id="evento" type="radio" name="tipo" value="" ${checked.evento}>
-                    <label for="evento" class="tallerlabel">Evento</label>
-                    <div class="pubEnInicio">
-                      <label for="enPaginaInicio">Publicar en Página Inicio</label>
-                      <input type="checkbox" id="enPaginaInicio" name="frontpage" ${checked.frontpage}>
-                    </div>
-                  </div>
+                  <select class="admin" name="tipo" value="${data.tipo}">
+                    <option value="Taller">Taller</option>
+                    <option value="Evento">Evento</option>
+                  </select>
+                </li>
+                <li>
+                  <label for="enPaginaInicio">Publicar en Página Inicio</label>
+                  <input type="checkbox" id="enPaginaInicio" name="frontpage" ${checked.frontpage}>
                 </li>
                 <li>
                   <label for="EditTitulo">Título</label>

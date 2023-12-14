@@ -1,8 +1,9 @@
 [
   {
     "id":"",
+    "new":"",
     "tipo": "",
-    "frontpage": false,
+    "frontpage": true,
     "titulo": "",
     "fecha": "",
     "dias": "",

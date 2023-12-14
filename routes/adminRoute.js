@@ -24,10 +24,9 @@ router.get('/', async (req,res)=>{
     // Escribe el array actualizado de entradas en el archivo JSON
   //  await fs.writeFile('./public/static/json/entradas.json', JSON.stringify(entradas, null, 2));
 
-
-
 router.post('/entradas', fileUpload(), async (req,res)=>{
-  console.log('linea 54 de adminRoute.js - titulo entrada:',req.body.titulo);
+  console.log('linea 28 de adminRoute.js - titulo entrada:',req.body.titulo);
+  console.log('linea 29 de adminRoute.js - ¿hay imagenes?:',req.files);
   // console.log(req.body, req.files);
   let content = {
     id: req.body.id,
@@ -42,13 +41,9 @@ router.post('/entradas', fileUpload(), async (req,res)=>{
     descripcion: req.body.descripcion,
     tallerista: req.body.tallerista,
     organiza: req.body.organiza,
-    fotos: req.body.fotos,
-    audios: req.body.audios,
     videolink: req.body.videolink,
-
-
-    // deleteimages: req.body.deleteimages,
-    // deleteaudios: req.body.deleteaudios,
+    eliminarfotos: req.body.eliminarfotos,
+    eliminaraudios: req.body.eliminaraudios,
   }
   // if(req.body.eliminarfotos){
   //   if(typeof req.body.eliminarfotos == 'string'){
@@ -70,32 +65,32 @@ router.post('/entradas', fileUpload(), async (req,res)=>{
   // console.log('typeof eliminarfotos:',typeof req.body.eliminarfotos);
   // console.log('content is new?',content.isnew);
     //images
-    // if(req.files){
-    //   let cimages=[]
-    //   let caudios=[]
-    //   let cimagetitles=[]
-    //   for(let x=1;x<=4;x++){
-    //     if(req.files['foto'+x]){
-    //       cimages.push({
-    //         filename:req.files['foto'+x].name,
-    //         data:req.files['foto'+x].data,
-    //       })
-    //       if(x==1)cimagetitles.push(req.body.fototext);
-    //       else cimagetitles.push('')
-    //     }
-    //     if(req.files['audio'+x])caudios.push({
-    //       filename:req.files['audio'+x].name,
-    //       data:req.files['audio'+x].data,
-    //       mimetype: req.files['audio'+x].mimetype,
-    //     })
-    //   }
-    //   if(cimages.length>0)content.images=cimages;
-    //   if(caudios.length>0)content.audios=caudios;
-    //   content.imagetitles=cimagetitles;
-    // }
-  console.log('content created');
+    if(req.files){
+      let cimages=[]
+      let caudios=[]
+      let cimagetitles=[]
+      for(let x=1;x<=4;x++){
+        if(req.files['foto'+x]){
+          cimages.push({
+            filename:req.files['foto'+x].name,
+            data:req.files['foto'+x].data,
+          })
+          if(x==1)cimagetitles.push(req.body.fototext);
+          else cimagetitles.push('')
+        }
+        if(req.files['audio'+x])caudios.push({
+          filename:req.files['audio'+x].name,
+          data:req.files['audio'+x].data,
+          mimetype: req.files['audio'+x].mimetype,
+        })
+      }
+      if(cimages.length>0)content.fotos=cimages;
+      if(caudios.length>0)content.audios=caudios;
+      content.imagetitles=cimagetitles;
+    }
+  console.log('linea 91 datacontroler: content created');
   let save = await datacontroler.datainput.entrada(content);
-  console.log('saved content: linea 85 adminRoute');
+  console.log('saved content: linea 93 adminRoute');
   if(!true)return res.send('not okay :(')
   res.redirect('/admin');
   // res.send('okay? '+save)
