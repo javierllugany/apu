@@ -28,6 +28,7 @@
     "gaxios": "^5.1.0",
     "gcp-metadata": "^5.2.0",
     "get-intrinsic": "^1.2.0",
+    "gm": "^1.25.0",
     "google-auth-library": "^8.7.0",
     "google-p12-pem": "^4.0.1",
     "google-spreadsheet": "^4.1.1",

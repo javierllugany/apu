@@ -65,6 +65,16 @@ div#pagPresentacion{
   grid-template-rows: 10vh auto auto;
 }
 
+.modeloSubpag.actividades div#pagPresentacion{
+  grid-template-areas:
+        "menu logo socialLink"
+        "evento evento socialLink"
+        "footer footer footer";
+  grid-template-columns: 1.5fr 2.5fr 4vw;
+  grid-template-rows: 40vh auto;
+  overflow: auto;
+}
+
 h2.admin{
   grid-area: titulo;
   font-size: 3vw;
@@ -125,6 +135,32 @@ div.form.admin form ul li p{
   grid-column: 2/3;
 }
 
+div.listaTodasLasActividades{
+  grid-area: evento;
+}
+
+div.listaTodasLasActividades ul{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-column-gap: 2vw;
+  margin: 2vh;
+}
+
+div.listaTodasLasActividades ul li{
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  margin-top: 2vh;
+}
+
+div.listaTodasLasActividades ul li img{
+  grid-columns: 1/2;
+  width: 80%;
+}
+
+div.listaTodasLasActividades ul li div.datos{
+  grid-columns: 2/3;
+}
+
 #menuON span{
   position: absolute;
   width: 2.5vw;
@@ -155,7 +191,8 @@ div.form.admin form ul li p{
   height: 3vw;
   display: inline-block;
   z-index: 7;
-  position: absolute;
+  /* position: absolute; esto antes funcionaba... si va mal reactivarlo, y eliminar linea 219 del CSS input[type="checkbox"]:checked ~ #pagPresentacion label{}*/
+  position: relative;
   background-color: rgba(214, 244, 239, 0.2);
   margin: 4vw 1.5vw;
   border-radius: 10px;
@@ -176,6 +213,10 @@ input[type="checkbox"]:checked ~ nav.MenuDesplegableModeloSubpag {
   left: 0;
   grid-area: menu;
   position:relative;
+}
+
+input[type="checkbox"]:checked ~ #menuON {
+  position:absolute;
 }
 
 input[type="checkbox"]:checked ~ label.botonLogoUbi {
@@ -206,6 +247,10 @@ input[type="checkbox"]:checked ~ #botonLogoModeloSubpag {
   position: relative;
   z-index: 5;
   transition: all 0.50s ease;
+}
+
+#LogoApuModeloSubpag.listaTodasLasActividades{
+  height: 34vh;
 }
 
 #pagPresentacion label#botonLogo{
@@ -299,6 +344,7 @@ div.SocialLink{
   z-index: 8;
   position: fixed;
   right: 0;
+  margin-right: 0.5vw;
 }
 
 div.SocialLink a{

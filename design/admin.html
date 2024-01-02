@@ -3,10 +3,11 @@
   <head>
     <meta charset="utf-8">
     <title>APU Admin</title>
+    <!-- <title>APU Editar Entrada</title> -->
     <link rel="shortcut icon" href="../public/static/logos/APU-icon.png" type="image/png">
     <link rel="stylesheet" href="../public/static/layout.css">
+    <script src="/public/static/scripts/fileuploadstepper.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <!-- <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> -->
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap" rel="stylesheet">
   </head>
   <body>
@@ -14,29 +15,27 @@
       <div id="pagAdmin">
         <h1>APU Club de Montaña</h1>
         <h2 class="admin">APU - SUBIR NUEVA ENTRADA</h2>
+        <!-- <h2 class="admin">APU - EDITAR o ELIMINAR ENTRADA</h2> -->
         <div class="topMenu admin">
           <ul>
             <li><a href="/loginAdmin/logout">Cerrar Sesión</a></li>
-            <li><a href="/edit">Editar o Eliminar una Entrada</a></li>
+            <li><a href="/admin/listaActividades">Ver y Editar Archivo de Entradas</a></li>
           </ul>
         </div>
         <div class="form admin">
           <form method="post" action="/admin/entradas" enctype="multipart/form-data">
             <input type="hidden" name="id" value="${data.id}">
-            <input type="hidden" name="isnew" value="${data.new}">
             <ul>
               <li>
                 <label>Tipo</label>
-                <div class="tipo">
-                  <input id="taller" type="radio" name="tipo" value="" ${checked.taller}>
-                  <label for="taller" class="tallerlabel">Taller</label>
-                  <input id="evento" type="radio" name="tipo" value="" ${checked.evento}>
-                  <label for="evento" class="tallerlabel">Evento</label>
-                  <div class="pubEnInicio">
-                    <label for="enPaginaInicio">Publicar en Página Inicio</label>
-                    <input type="checkbox" id="enPaginaInicio" name="frontpage" ${checked.frontpage}>
-                  </div>
-                </div>
+                <select class="admin" name="tipo" value="${data.tipo}">
+                  <option value="Taller">Taller</option>
+                  <option value="Evento">Evento</option>
+                </select>
+              </li>
+              <li>
+                <label for="enPaginaInicio">Publicar en Página Inicio</label>
+                <input type="checkbox" id="enPaginaInicio" name="frontpage" ${checked.frontpage}>
               </li>
               <li>
                 <label for="EditTitulo">Título</label>
@@ -44,16 +43,12 @@
                   value="${data.titulo}" class="admin" required></p>
               </li>
               <li>
-                <label for="EditFecha">Fecha</label>
-                <input id="EditFecha" type="date" name="fecha" class="admin" value="${data.fecha}">
+                <label for="EditFecha">Fecha de Inicio</label>
+                <input id="EditFecha" type="date" name="fechaInicio" class="admin" value="${data.fechaInicio}">
               </li>
               <li>
-                <label for="EditDias">Días de la Actividad</label>
-                <input id="EditDias" type="text" name="dias" class="admin" value="${data.dias}">
-              </li>
-              <li>
-                <label for="EditHorario">Horario</label>
-                <input id="EditHorario" type="time" name="horario" class="admin" value="${data.horario}">
+                <label for="EditDias">Días y Horario de la Actividad</label>
+                <input id="EditDias" type="text" name="programa" class="admin" size="70" value="${data.programa}">
               </li>
               <li>
                 <label for="EditLugar">Lugar</label>
@@ -130,6 +125,7 @@
     </header>
   </body>
 </html>
+  `;
 
 
 

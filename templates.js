@@ -5,6 +5,7 @@ const raw = {
   talleres: require('./templates/subpagTalleres.js'),
   login: require('./templates/login.js'),
   admin: require('./templates/admin.js'),
+  listaActividades: require('./templates/listaActividades.js'),
 }
 
 const templates = {

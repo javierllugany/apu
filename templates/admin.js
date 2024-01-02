@@ -1,18 +1,13 @@
 module.exports = function(dataobj){
-//  console.log("dataobj es ", dataobj);
-//  console.log("estoy en linea 2 de templates/admin.js");
-  let data = dataobj.entrada
-  //console.log("data es ", data);
+  // let data = dataobj.entrada;
+   let data = dataobj;
+  console.log('linea 3 admin.js - data es: ', data);
   let x=0;
-  //console.log('linea 7 admin.js tipo es: ', data.tipo)
   let checked = {
     // taller: (data.tipo==='Taller') ? 'checked': '',
     // evento: (data.tipo==='Evento') ? 'checked': '',
     frontpage: (data.frontpage===true) ? 'checked': '',
   }
-  // if(dataobj.new){
-  //   checked.entrada='checked'
-  // }
   let eliminarfotos=''
   for(x=0;x<data.fotos.length;x++){
     eliminarfotos+=`<li class="grideliminarfotoyaudio">
@@ -45,11 +40,11 @@ module.exports = function(dataobj){
     <head>
       <meta charset="utf-8">
       <title>APU Admin</title>
+      <!-- <title>APU Editar Entrada</title> -->
       <link rel="shortcut icon" href="../public/static/logos/APU-icon.png" type="image/png">
       <link rel="stylesheet" href="../public/static/layout.css">
       <script src="/public/static/scripts/fileuploadstepper.js"></script>
       <link rel="preconnect" href="https://fonts.googleapis.com">
-      <!-- <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> -->
       <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap" rel="stylesheet">
     </head>
     <body>
@@ -57,16 +52,16 @@ module.exports = function(dataobj){
         <div id="pagAdmin">
           <h1>APU Club de Montaña</h1>
           <h2 class="admin">APU - SUBIR NUEVA ENTRADA</h2>
+          <!-- <h2 class="admin">APU - EDITAR o ELIMINAR ENTRADA</h2> -->
           <div class="topMenu admin">
             <ul>
               <li><a href="/loginAdmin/logout">Cerrar Sesión</a></li>
-              <li><a href="/edit">Editar o Eliminar una Entrada</a></li>
+              <li><a href="/admin/listaActividades">Ver y Editar Archivo de Entradas</a></li>
             </ul>
           </div>
           <div class="form admin">
             <form method="post" action="/admin/entradas" enctype="multipart/form-data">
               <input type="hidden" name="id" value="${data.id}">
-              <input type="hidden" name="new" value="${data.new}">
               <ul>
                 <li>
                   <label>Tipo</label>
@@ -85,16 +80,12 @@ module.exports = function(dataobj){
                     value="${data.titulo}" class="admin" required></p>
                 </li>
                 <li>
-                  <label for="EditFecha">Fecha</label>
-                  <input id="EditFecha" type="date" name="fecha" class="admin" value="${data.fecha}">
+                  <label for="EditFecha">Fecha de Inicio</label>
+                  <input id="EditFecha" type="date" name="fechaInicio" class="admin" value="${data.fechaInicio}">
                 </li>
                 <li>
-                  <label for="EditDias">Días de la Actividad</label>
-                  <input id="EditDias" type="text" name="dias" class="admin" value="${data.dias}">
-                </li>
-                <li>
-                  <label for="EditHorario">Horario</label>
-                  <input id="EditHorario" type="time" name="horario" class="admin" value="${data.horario}">
+                  <label for="EditDias">Días y Horario de la Actividad</label>
+                  <input id="EditDias" type="text" name="programa" class="admin" size="70" value="${data.programa}">
                 </li>
                 <li>
                   <label for="EditLugar">Lugar</label>

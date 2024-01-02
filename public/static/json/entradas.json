@@ -1,13 +1,11 @@
 [
   {
     "id":"",
-    "new":"",
     "tipo": "",
     "frontpage": true,
     "titulo": "",
-    "fecha": "",
-    "dias": "",
-    "horario": "",
+    "fechaInicio": "",
+    "programa": "",
     "lugar": "",
     "descripcion": "",
     "tallerista": "",

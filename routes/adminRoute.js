@@ -11,7 +11,6 @@ app.use(express.json());
 
 router.get('/', async (req,res)=>{
   try {
-    //console.log("estamos en linea 13 routes/adminRoute.js");
     let data = await datacontroler.admin();
     response = templates.buildPage('admin',data);
     res.send(response);
@@ -21,22 +20,44 @@ router.get('/', async (req,res)=>{
   }
 });
 
-    // Escribe el array actualizado de entradas en el archivo JSON
+router.get('/listaActividades', async (req,res)=>{
+  try {
+    let data = await datacontroler.listaActividades();
+    response = templates.buildPage('listaActividades',data);
+    res.send(response);
+  } catch (e) {
+    console.warn(e);
+    res.status(400).send('linea 32 adminRoute.js - oops, something went wrong del adminroute');
+  }
+});
+
+router.get('/:id', async (req,res)=>{
+  try {
+    console.log("estamos en linea 37 adminRoute.js");
+    let id=req.params.id;
+    let data = await datacontroler.admin(req.params.id);
+    if(!data)return res.status(400).send('did not work linea 38 adminroute')
+    response = templates.buildPage('admin',data);
+    res.send(response);
+  } catch (e) {
+    console.warn(e);
+    res.status(400).send('linea 43 adminRoute.js - oops, something went wrong del adminroute');
+  }
+});
+
+  // Escribe el array actualizado de entradas en el archivo JSON
   //  await fs.writeFile('./public/static/json/entradas.json', JSON.stringify(entradas, null, 2));
 
 router.post('/entradas', fileUpload(), async (req,res)=>{
   console.log('linea 28 de adminRoute.js - titulo entrada:',req.body.titulo);
-  console.log('linea 29 de adminRoute.js - ¿hay imagenes?:',req.files);
-  // console.log(req.body, req.files);
   let content = {
     id: req.body.id,
-    new: req.body.new,
     tipo: req.body.tipo,
-    frontpage: (req.body.frontpage=='on'),
+    //frontpage: (req.body.frontpage=='on'),
+    frontpage: req.body.frontpage,
     titulo: req.body.titulo,
-    fecha: req.body.fecha,
-    dias: req.body.dias,
-    horario: req.body.horario,
+    fechaInicio: req.body.fechaInicio,
+    programa: req.body.programa,
     lugar: req.body.lugar,
     descripcion: req.body.descripcion,
     tallerista: req.body.tallerista,
@@ -63,7 +84,6 @@ router.post('/entradas', fileUpload(), async (req,res)=>{
   // }
   // console.log('delete images:',req.body.eliminarfotos);
   // console.log('typeof eliminarfotos:',typeof req.body.eliminarfotos);
-  // console.log('content is new?',content.isnew);
     //images
     if(req.files){
       let cimages=[]
