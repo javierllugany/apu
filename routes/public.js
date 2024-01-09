@@ -36,8 +36,23 @@ router.get('/talleres', async (req,res)=>{
           res.status(404).send('oops, not found')
           return;
         }
+        result = templates.buildPage('subpagActividades', {data:data})
+        res.send(result)
+      }catch(e){
+        console.log(e)
+        res.status(400).send('an error occured')
+      }
+});
 
-        result = templates.buildPage('talleres', {data:data})
+router.get('/eventos', async (req,res)=>{
+      try{
+        let result = ''
+        let data = await datacontroler.eventos()
+        if(!data){
+          res.status(404).send('oops, not found')
+          return;
+        }
+        result = templates.buildPage('subpagActividades', {data:data})
         res.send(result)
       }catch(e){
         console.log(e)

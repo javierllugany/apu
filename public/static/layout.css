@@ -35,10 +35,10 @@ h1{
 div#pagPresentacion{
   display: grid;
   grid-template-areas:
-        "logo logo logo socialLink"
-        "evento evento fotos socialLink"
+        "menuHamburguesa logo logo socialLink"
+        "contenido contenido fotos socialLink"
         "footer footer footer footer";
-  grid-template-columns: 1.5fr 1fr 1.5fr 4vw;
+  grid-template-columns: 1fr 2fr 2fr 4vw;
   grid-row-gap: 2vh;
   height: 100vh;
   overflow: clip;
@@ -47,10 +47,10 @@ div#pagPresentacion{
 
 .modeloSubpag div#pagPresentacion{
   grid-template-areas:
-        "menu logo socialLink"
-        "evento evento socialLink"
+        "menuHamburguesa logo socialLink"
+        "contenido contenido socialLink"
         "footer footer footer";
-  grid-template-columns: 1.5fr 2.5fr 4vw;
+  grid-template-columns: 1fr 2fr 4vw;
   grid-template-rows: 40vh 56vh;
   overflow: auto;
 }
@@ -59,7 +59,7 @@ div#pagPresentacion{
   display: grid;
   grid-template-areas:
         "titulo menu"
-        "evento evento"
+        "contenido contenido"
         "footer footer";
   grid-template-columns: 3fr 1fr;
   grid-template-rows: 10vh auto auto;
@@ -67,10 +67,10 @@ div#pagPresentacion{
 
 .modeloSubpag.actividades div#pagPresentacion{
   grid-template-areas:
-        "menu logo socialLink"
-        "evento evento socialLink"
+        "menuHamburguesa logo socialLink"
+        "contenido contenido socialLink"
         "footer footer footer";
-  grid-template-columns: 1.5fr 2.5fr 4vw;
+  grid-template-columns: 1fr 2fr 4vw;
   grid-template-rows: 40vh auto;
   overflow: auto;
 }
@@ -87,7 +87,7 @@ div.topMenu.admin{
 }
 
 div.form.admin{
-  grid-area: evento;
+  grid-area: contenido;
 }
 
 div.admin form ul li{
@@ -95,6 +95,44 @@ div.admin form ul li{
   grid-template-columns: 1fr 3fr;
   grid-column-gap: 2vw;
   margin-top: 2vh;
+}
+
+div.admin form ul.editFotos{
+  display: grid;
+  grid-template-columns: repeat(5, 18vw);
+  grid-column-gap: 2vw;
+  margin-top: 2vh;
+}
+
+div.admin form ul li.grideliminarfotoyaudio{
+  display: grid;
+  grid-template-areas:
+    "foto foto"
+    "input label";
+  grid-row-gap: 0.5vw;
+  grid-column-gap: 0.5vw;
+  grid-template-columns: 1fr auto;
+  margin-top: 2vh;
+}
+
+div.admin form ul li img.editfotosdeEntrada{
+  grid-area: foto;
+  justify-self: right;
+  width: 70%;
+}
+
+div.admin form ul li input.editfotosdeEntrada{
+  grid-area: input;
+  justify-self: right;
+  width: 1.5em;
+}
+
+div.form.admin form ul li label.editfotosdeEntrada{
+  grid-area: label;
+}
+
+input[type="checkbox"]:checked ~ img.editfotosdeEntrada{
+  opacity: 0.3;
 }
 
 input.admin, select.admin{
@@ -136,10 +174,19 @@ div.form.admin form ul li p{
 }
 
 div.listaTodasLasActividades{
-  grid-area: evento;
+  grid-area: contenido;
+}
+
+div.contenidoUsuarios{
+  display: grid;
+  grid-template-areas: "titulo"
+                      "contenido";
+  grid-row-gap: 2vh;
+  margin: 2vh;
 }
 
 div.listaTodasLasActividades ul{
+  grid-area: contenido;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-column-gap: 2vw;
@@ -205,13 +252,13 @@ div.listaTodasLasActividades ul li div.datos{
 
 input[type="checkbox"]:checked ~ nav.MenuDesplegable {
   left: 0;
-  grid-area: logo;
+  grid-area: menuHamburguesa;
   position:relative;
 }
 
 input[type="checkbox"]:checked ~ nav.MenuDesplegableModeloSubpag {
   left: 0;
-  grid-area: menu;
+  grid-area: menuHamburguesa;
   position:relative;
 }
 
@@ -280,6 +327,7 @@ input[type="checkbox"]:checked ~ #botonLogoModeloSubpag {
 }
 
 nav.MenuDesplegable{
+  grid-area: menuHamburguesa;
 	position: absolute;
 	top: 0;
 	/* bottom: 6vw; */
@@ -368,7 +416,7 @@ a#subscribe-button{
 }
 
 .proximasActividades{
-  grid-area: evento;
+  grid-area: contenido;
   margin-left: 2vw;
   overflow: clip;
 }
@@ -436,7 +484,7 @@ a#subscribe-button{
 }
 
 div.entrada{
-  grid-area: evento;
+  grid-area: contenido;
   display: grid;
   grid-template-areas: "titulo imgPrincipal"
                       "contenido imgPrincipal"
@@ -487,11 +535,11 @@ div#sliderModelo img{
 
   div#pagPresentacion{
     display: grid;
-    grid-template-areas: "logo logo logo socialLink"
-    "fotos fotos fotos socialLink"
-    "evento evento evento socialLink"
-    "footer footer footer footer";
-    grid-template-columns: 1fr 2fr 1fr 9vw;
+    grid-template-areas: "menuHamburguesa logo socialLink"
+    "fotos fotos socialLink"
+    "contenido contenido socialLink"
+    "footer footer footer";
+    grid-template-columns: 1fr 2fr 9vw;
     overflow: auto;
     grid-template-rows: 40vh auto auto;
     height: auto;
@@ -633,18 +681,18 @@ ul.listaActividades {
 .pagUbicacion div#pagPresentacion{
   display: grid;
   grid-template-areas:
-        "logo logo socialLink"
-        "mapa mapa socialLink"
+        "menuHamburguesa logo socialLink"
+        "contenido contenido socialLink"
         "footer footer footer";
-  grid-template-columns: 1fr 1fr 4vw;
-  grid-template-rows: 35vh auto auto;
+  grid-template-columns: 1fr 2fr 4vw;
+  grid-template-rows: 40vh auto auto;
   grid-row-gap: 2vw;
   grid-column-gap: 2vw;
 }
 
 .pagUbicacion div#pagPresentacion #LogoApu{
   justify-self: auto;
-  margin: 5vw 12vw 2vw;
+  margin: 5vw 3vw 2vw;
   grid-area: logo;
   height: 80%;
 }
@@ -653,7 +701,7 @@ ul.listaActividades {
   width: 18vw;
   height: 27vh;
   justify-self: auto;
-  margin: 5vw 12vw auto;
+  margin: 5vw 3vw auto;
   grid-area: logo;
   }
 
@@ -677,7 +725,7 @@ div.textoUbicacionModelosubpag {
 }
 
 div.ubicacion{
-  grid-area: mapa;
+  grid-area: contenido;
   justify-self: center;
 }
 
@@ -693,9 +741,9 @@ div.ubicacion .mapaChico{
 
   .pagUbicacion div#pagPresentacion {
     display: grid;
-    grid-template-areas: "logo logo socialLink" "texto texto socialLink" "mapa mapa socialLink" "footer footer footer";
+    grid-template-areas: "menuHamburguesa logo socialLink" "texto texto socialLink" "contenido contenido socialLink" "footer footer footer";
     grid-template-columns: 1fr 1fr 4vw;
-    grid-template-rows: 35vh auto auto auto;
+    grid-template-rows: 40vh auto auto auto;
     grid-row-gap: 2vw;
     height: 100vh;
   }
@@ -711,7 +759,7 @@ div.ubicacion .mapaChico{
 }
 
 input[type="checkbox"]:checked ~ .pagUbicacion div#pagPresentacion nav.MenuDesplegable {
-	grid-area: logo/logo/mapa/logo;
+	grid-area: menuHamburguesa/menuHamburguesa/contenido/menuHamburguesa;
 	width: 100%;
 }
 

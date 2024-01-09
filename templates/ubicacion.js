@@ -30,8 +30,8 @@ const template = function(data){
                 </li>
       					<li><a id="actividades" href="#actividades">ACTIVIDADES</a>
                   <ul class="submenu">
-                    <li><a href="">TALLERES</a></li>
-                    <li><a href="">EVENTOS</a></li>
+                    <li><a href="/talleres">TALLERES</a></li>
+                    <li><a href="/eventos">EVENTOS</a></li>
                     <li style="display: none;"><a href="">AGENDA</a></li>
                   </ul>
                 </li>

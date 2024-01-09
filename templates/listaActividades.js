@@ -7,7 +7,12 @@ const template = function(actividades){
       let tipo = actividad.tipo
       let fechaInicio = actividad.fechaInicio
       let programa = actividad.programa
-      let descripcion = actividad.descripcion.substring(0,actividad.descripcion.indexOf(' ',100))+'...'
+      let descripcion=''
+      if (actividad.descripcion.length>100) {
+        descripcion = actividad.descripcion.substring(0,actividad.descripcion.indexOf('',100))+'...';
+      } else {
+        descripcion = actividad.descripcion;
+      }
       let img=''
       if(actividad.fotos[0]){
         img = `<img src="${actividad.fotos[0].url}" alt="${actividad.fotos[0].title}">`

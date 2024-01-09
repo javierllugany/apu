@@ -37,11 +37,45 @@ const datacontroler = {
     return newTerror;
   },
 
-  listaActividades: async function(pagenr){
+  listaActividades: async function(){
     try {
       const datajson = await fs.readFile('./public/static/json/entradas.json', 'utf-8');
       const entradas = JSON.parse(datajson);
       return entradas;
+    } catch (e) {
+        console.log(e);
+        return false;
+      }
+  },
+
+  talleres: async function(){
+    try {
+      const datajson = await fs.readFile('./public/static/json/entradas.json', 'utf-8');
+      const entradas = JSON.parse(datajson);
+      let dataActividades=[];
+      for (var i = 0; i < entradas.length; i++) {
+        if (entradas[i].tipo==="Taller") {
+          dataActividades.push(entradas[i]);
+        }
+      }
+      return dataActividades;
+    } catch (e) {
+        console.log(e);
+        return false;
+      }
+  },
+
+  eventos: async function(){
+    try {
+      const datajson = await fs.readFile('./public/static/json/entradas.json', 'utf-8');
+      const entradas = JSON.parse(datajson);
+      let dataActividades=[];
+      for (var i = 0; i < entradas.length; i++) {
+        if (entradas[i].tipo==="Evento") {
+          dataActividades.push(entradas[i]);
+        }
+      }
+      return dataActividades;
     } catch (e) {
         console.log(e);
         return false;
@@ -114,6 +148,65 @@ const datacontroler = {
       }
     },
 
+  borrar: async function(id){
+        console.log('linea 119 datacontroler id es: ', id);
+        const datajson = await fs.readFile('./public/static/json/entradas.json', 'utf-8');
+        const entradas = JSON.parse(datajson);
+        const entrada = entradas.find(item => item.id === id);
+        if(!id){
+          console.log('linea 124 datacontroler el id no coincide en json');
+          console.log('Error al borrar la entrada:', id);
+          return false;
+        } else {
+          // crear copia de seguridad de entradas.json
+          let carpetaCopiaSeguridad = './public/static/copiaSeguridad';
+          if(!fs1.existsSync(carpetaCopiaSeguridad))fs1.mkdirSync(carpetaCopiaSeguridad,{recursive:true});
+          carpetaCopiaSeguridad+='/';
+          let copiaName = carpetaCopiaSeguridad+'copiadeseguridad'+'-entradas.json';
+          try{
+            // Copying the file to a the same name
+            await fs.copyFile('./public/static/json/entradas.json', copiaName);
+          } catch (error) {
+            console.error(error);
+            res.status(500).send('Error al hacer json de seguridad en 137 de datacontroler');
+          }
+        }
+        //eliminar fotos del servidor
+        let newfotos = [];
+        let x=0;
+        if(entrada.fotos.length>=0){
+          console.log('linea 145 datacontroler hay fotos para eliminar del servidor', entrada.fotos);
+          //delete fotos from hdd
+          for (x=0;x<entrada.fotos.length;x++){
+            let delpath = "."+entrada.fotos[x].url;
+            console.log('linea 149 datacontroler delpath es', delpath);
+            if(fs1.existsSync(delpath)){
+            console.log('linea 151 datacontroler delpath existe en /public/files/fotos');
+            try {
+              //delete:
+               fs1.unlinkSync(delpath);
+            } catch (e) {
+              console.log('linea 156 datacontroler no se elimino la imagen', delpath);
+                console.log('Error al borrar la imagen:', e);
+                return false;
+              }
+            } else {
+              console.log('linea 161 datacontroler delpath no existe en /public/files/fotos');
+              continue;
+            }
+          }
+        }
+        try {
+            entradas.shift(entrada); //no se si es shift el metodo para sacar un arreglo
+            await fs.writeFile('./public/static/json/entradas.json', JSON.stringify(entradas, null, 2));
+            console.log("linea 169 datacontroler el json ya esta actualizado sin la entrada id: ", id);
+            return true;
+          } catch (error) {
+            console.error(error);
+            res.status(500).send('Error al borrar la entrada del json en 173 datacontroler');
+          }
+    },
+
   datainput: {
     chooseNewName: function(path,fname){
       let filename = fname.toLowerCase();
@@ -133,43 +226,53 @@ const datacontroler = {
       return filen+n+ext;
   },
     entrada: async function(content){
-      //console.log("linea 123 datacontroler content es: ", content);
       let simplefields = ['id','tipo','frontpage','titulo','fechaInicio','programa','lugar','descripcion','tallerista','organiza','fotos','audios', 'videolink'];
       let updateobj = {};
       for (let x=0;x<simplefields.length;x++){
         updateobj[simplefields[x]]=content[simplefields[x]];
       }
       //missing: audios, fotos,
-      //fotos
       let newfotos = [];
       let x=0;
-      if(content.eliminarfotos){
+      console.log('linea 237 datacontroler content.eliminarfotos[0].url es: ', content.eliminarfotos[0]);
+    if(content.eliminarfotos && content.eliminarfotos.length > 0){
+        console.log('linea 239 datacontroler hay fotos para eliminar', content.eliminarfotos);
         //delete fotos from hdd BEFORE putting new one in as they could be "replaced"
         for (x=0;x<content.eliminarfotos.length;x++){
-          let delpath = "."+content.eliminarfotos[x];
-          if(!fs1.existsSync(delpath))continue;
-          //check for malformed strings:
-          if(content.eliminarfotos[x].substring(0,'/public/files/fotos/'.length)!='/public/files/fotos/')continue;
-          if(content.eliminarfotos[x].indexOf('..')>-1)continue;
-          //should we move or just delete files?
-          //move: fs.renameSync(delpath, './private/deleted'+content.eliminarfotos[x]);
-          //delete:
-          fs1.unlinkSync(delpath);
+          let delpath = "."+content.eliminarfotos[x].url;
+          if(fs1.existsSync(delpath)){
+          try {
+            //delete:
+             fs1.unlinkSync(delpath);
+          } catch (e) {
+              console.log('Error al borrar la imagen:', delpath, e);
+              return false;
+            }
+          } else {
+            console.log('linea 156 datacontroler delpath no existe en /public/files/fotos');
+            continue;
+          }
         }
       }
+
       if(content.eliminaraudios){
-        //delete audios from hdd BEFORE putting new one in as they could be "replaced"
         for (x=0;x<content.eliminaraudios.length;x++){
           let delpath = "."+content.eliminaraudios[x];
-          if(!fs1.existsSync(delpath))continue;
-          //check for malformed strings:
-          if(content.eliminaraudios[x].substring(0,'/public/files/audios/'.length)!='/public/files/audios/')continue;
-          if(content.eliminaraudios[x].indexOf('..')>-1)continue;
-          fs1.unlinkSync(delpath);
+          if(fs1.existsSync(delpath)){
+          try {
+            //delete:
+             fs1.unlinkSync(delpath);
+          } catch (e) {
+              console.log('Error al borrar el audio:', delpath, e);
+              return false;
+            }
+          } else {
+            console.log('linea 156 datacontroler delpath no existe en /public/files/audios');
+            continue;
+          }
         }
       }
       if(content.fotos){
-        console.log('linea 165 datacontroler - saving fotos',content.fotos);
         let imgpath = './public/files/fotos';
         if(!fs1.existsSync(imgpath))fs1.mkdirSync(imgpath,{recursive:true});
         imgpath+='/';
@@ -187,13 +290,12 @@ const datacontroler = {
           let savedimg = await saveImage(imgpath+imgname, content.fotos[x].data);
           if(savedimg)newfotos.push({
             url:imgurl,
-            title: content.imagetitles[x],
           });
         }
       }
       //audios
       let newaudios = [];
-      if(content.audios && content.audios.length>0){
+      if(content.audios && content.audios.length>-1){
         let audiopath = './public/files/audios';
         if(!fs1.existsSync(audiopath))fs1.mkdirSync(audiopath,{recursive:true});
         audiopath+='/';
@@ -208,7 +310,7 @@ const datacontroler = {
             continue;
           }
           //save audio to disk
-          fs.writeFileSync(audiopath+audioname,content.audios[x].data);
+          fs1.writeFileSync(audiopath+audioname,content.audios[x].data);
           newaudios.push({
             url:audiopath.substring(1)+audioname,
             description: content.audios[x].description,
@@ -235,6 +337,7 @@ const datacontroler = {
           //check for image:
           if(newfotos.length==0){
             let previmg = await fetch(`https://img.youtube.com/vi/${ytid}/hqdefault.jpg`)
+            let cdate = new Date();
             let imgpath = './public/files/fotos/'+cdate.getFullYear()+'/'+(cdate.getMonth()+1);
             if(!fs1.existsSync(imgpath))fs1.mkdirSync(imgpath,{recursive:true});
             imgpath+='/';
@@ -243,7 +346,7 @@ const datacontroler = {
               let res = await fetch(`https://img.youtube.com/vi/${ytid}/hqdefault.jpg`)
                 if(res.ok){
                   let previmg = await res.buffer()
-                  fs.writeFileSync(imgpath,previmg)
+                  fs1.writeFileSync(imgpath,previmg)
                   newfotos.push({
                     url:imgpath.substring(1),
                     title: 'prevista youtube',
@@ -292,11 +395,14 @@ const datacontroler = {
           }
       }else{
         try {
-          console.log('linea 309 datacontroler: la entrada es vieja',oldentrada.titulo, oldentrada.id);
+          console.log('linea 295 datacontroler: la entrada es vieja',oldentrada.titulo, oldentrada.id);
+          console.log("linea 296 datacontroler content.eliminarfotos es: ", content.eliminarfotos);
           if(content.eliminarfotos){
             for (x=0;x<content.eliminarfotos.length;x++){
+              console.log("linea 299 datacontroler content.eliminarfotos[x].url es: ", content.eliminarfotos[x].url);
               for(let y=0;y<oldentrada.fotos.length;y++){
-                if(oldentrada.fotos[y].url==content.eliminarfotos[x]){
+                console.log("linea 301 datacontroler oldentrada.fotos[y].url es: ", oldentrada.fotos[y].url);
+                if(oldentrada.fotos[y].url==content.eliminarfotos[x].url){
                   oldentrada.fotos.splice(y,1);
                   break;
                 }
@@ -306,7 +412,7 @@ const datacontroler = {
           if(content.eliminaraudios){
             for (x=0;x<content.eliminaraudios.length;x++){
               for(let y=0;y<oldentrada.audios.length;y++){
-                if(oldentrada.audios[y].url==content.eliminaraudios[x]){
+                if(oldentrada.audios[y].url==content.eliminaraudios[x].url){
                   oldentrada.audios.splice(y,1);
                   break;
                 }
@@ -319,9 +425,10 @@ const datacontroler = {
           for (x=0;x<newaudios.length;x++){
             oldentrada.audios.push(newaudios[x]);
           }
-          console.log("linea 337 datacontroler la entrada a insertar en json es por ahora :", updateobj);
+          console.log("linea 322 datacontroler la entrada a insertar en json es por ahora :", updateobj);
           updateobj.fotos = oldentrada.fotos;
           updateobj.audios = oldentrada.audios;
+          console.log("linea 325 datacontroler la entrada a insertar en json es por ahora :", updateobj);
 
           // if(oldentrada.videolink && (content.videolink=='')){
           //   console.log('delete videolink', oldentrada.videolink, content.videolink);

@@ -45,58 +45,72 @@ router.get('/:id', async (req,res)=>{
   }
 });
 
+router.get('/borrar/:id', async (req,res)=>{
+  try {
+    console.log("estamos en linea 50 adminRoute.js");
+    let id=req.params.id;
+    let data = await datacontroler.borrar(req.params.id);
+    if (data===true) {
+      res.redirect('/admin');
+    } else {
+      return res.status(400).send('did not work linea 57 adminroute')
+    }
+  } catch (e) {
+      console.warn(e);
+      res.status(400).send('linea 58 adminRoute - oops, something went wrong del adminroute');
+  }
+});
+
   // Escribe el array actualizado de entradas en el archivo JSON
   //  await fs.writeFile('./public/static/json/entradas.json', JSON.stringify(entradas, null, 2));
 
 router.post('/entradas', fileUpload(), async (req,res)=>{
-  console.log('linea 28 de adminRoute.js - titulo entrada:',req.body.titulo);
-  let content = {
-    id: req.body.id,
-    tipo: req.body.tipo,
-    //frontpage: (req.body.frontpage=='on'),
-    frontpage: req.body.frontpage,
-    titulo: req.body.titulo,
-    fechaInicio: req.body.fechaInicio,
-    programa: req.body.programa,
-    lugar: req.body.lugar,
-    descripcion: req.body.descripcion,
-    tallerista: req.body.tallerista,
-    organiza: req.body.organiza,
-    videolink: req.body.videolink,
-    eliminarfotos: req.body.eliminarfotos,
-    eliminaraudios: req.body.eliminaraudios,
-  }
-  // if(req.body.eliminarfotos){
-  //   if(typeof req.body.eliminarfotos == 'string'){
-  //     console.log('delete one image');
-  //     content.deleteimages = [req.body.eliminarfotos]
-  //   }else{
-  //     content.deleteimages = req.body.eliminarfotos
-  //   }
-  // }
-  // if(req.body.eliminaraudios){
-  //   if(typeof req.body.eliminaraudios == 'string'){
-  //     console.log('delete one audio');
-  //     content.deleteaudios = [req.body.eliminaraudios]
-  //   }else{
-  //     content.deleteaudios = req.body.eliminaraudios
-  //   }
-  // }
-  // console.log('delete images:',req.body.eliminarfotos);
-  // console.log('typeof eliminarfotos:',typeof req.body.eliminarfotos);
+    let content = {
+      id: req.body.id,
+      tipo: req.body.tipo,
+      frontpage: req.body.frontpage,
+      titulo: req.body.titulo,
+      fechaInicio: req.body.fechaInicio,
+      programa: req.body.programa,
+      lugar: req.body.lugar,
+      descripcion: req.body.descripcion,
+      tallerista: req.body.tallerista,
+      organiza: req.body.organiza,
+      videolink: req.body.videolink,
+      eliminarfotos: [],
+      eliminaraudios: [],
+    }
+
+    if(req.body){
+      let borrarfotos=[]
+      let borraraudios=[]
+      for(let x=1;x<=4;x++){
+        if(req.body['eliminarfotos'+x]){
+          borrarfotos.push({
+            url:req.body['eliminarfotos'+x],
+          })
+        }
+        if(req.body['eliminaraudios'+x]){
+          borraraudios.push({
+            url:req.body['eliminaraudios'+x],
+          })
+        }
+      }
+      if(borrarfotos.length>0)content.eliminarfotos=borrarfotos;
+      if(borraraudios.length>0)content.eliminaraudios=borraraudios;
+    }
+  console.log('linea 86 adminRoute content.eliminarfotos es:', content.eliminarfotos);
+
     //images
     if(req.files){
       let cimages=[]
       let caudios=[]
-      let cimagetitles=[]
       for(let x=1;x<=4;x++){
         if(req.files['foto'+x]){
           cimages.push({
             filename:req.files['foto'+x].name,
             data:req.files['foto'+x].data,
           })
-          if(x==1)cimagetitles.push(req.body.fototext);
-          else cimagetitles.push('')
         }
         if(req.files['audio'+x])caudios.push({
           filename:req.files['audio'+x].name,
@@ -106,11 +120,10 @@ router.post('/entradas', fileUpload(), async (req,res)=>{
       }
       if(cimages.length>0)content.fotos=cimages;
       if(caudios.length>0)content.audios=caudios;
-      content.imagetitles=cimagetitles;
     }
-  console.log('linea 91 datacontroler: content created');
+  console.log('linea 108 adminroute: content created');
   let save = await datacontroler.datainput.entrada(content);
-  console.log('saved content: linea 93 adminRoute');
+  console.log('saved content: linea 110 adminRoute');
   if(!true)return res.send('not okay :(')
   res.redirect('/admin');
   // res.send('okay? '+save)
