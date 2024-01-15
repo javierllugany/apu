@@ -7,6 +7,7 @@ const raw = {
   admin: require('./templates/admin.js'),
   listaActividades: require('./templates/listaActividades.js'),
   subpagActividades: require('./templates/subpagActividades.js'),
+  subpagActividad: require('./templates/subpagActividad.js'),
 }
 
 const templates = {

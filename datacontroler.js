@@ -8,33 +8,43 @@ const fs1 = require('fs');
 
 const datacontroler = {
   frontpage: async function(){
-    // if(this.cache.frontpage)return this.cache.frontpage;
-    let agenda1="hola agenda1 del datacontroler"
-    let agenda2="Chau agenda2 del datacontroler"
-
-    let newfrontpage = {
-      articulo1:agenda1,
-      articulo2:agenda2,
-    }
-    return newfrontpage;
+    try {
+      const datajson = await fs.readFile('./public/static/json/entradas.json', 'utf-8');
+      const entradas = JSON.parse(datajson);
+      let dataFrontpage=[];
+      for (var i = 0; i < entradas.length; i++) {
+        if (entradas[i].frontpage===true || entradas[i].frontpage==="on") {
+          dataFrontpage.push(entradas[i]);
+        }
+      }
+      console.log('linea 20 datacontroler dataFrontpage es : ', dataFrontpage);
+      return dataFrontpage;
+    } catch (e) {
+        console.log(e);
+        return false;
+      }
   },
 
   ubicacion: async function(){
-    let ne2Terror="hola ${subpagina} automatica del datacontroler"
-    let newTerror = {
-      articulo1:ne2Terror,
-      articulo20:"hai mas Terror",
-    }
-    return newTerror;
+    let data=""
+    return data;
   },
 
-  subpagina: async function(subpagina){
-    let ne2Terror="hola ${subpagina} automatica del datacontroler"
-    let newTerror = {
-      articulo1:ne2Terror,
-      articulo20:"hai mas Terror",
-    }
-    return newTerror;
+  actividad: async function(id){
+    try {
+      const datajson = await fs.readFile('./public/static/json/entradas.json', 'utf-8');
+      const entradas = JSON.parse(datajson);
+      const entrada = entradas.find(item => item.id === id);
+      if(!id){
+        console.log('linea 34 datacontroler el id no coincide en json');
+        console.log('Error al abrir la entrada:', id);
+        return false;
+      } else {
+      return entrada;
+      } } catch (e) {
+        console.log(e);
+        return false;
+      }
   },
 
   listaActividades: async function(){
@@ -197,14 +207,15 @@ const datacontroler = {
           }
         }
         try {
-            entradas.shift(entrada); //no se si es shift el metodo para sacar un arreglo
-            await fs.writeFile('./public/static/json/entradas.json', JSON.stringify(entradas, null, 2));
-            console.log("linea 169 datacontroler el json ya esta actualizado sin la entrada id: ", id);
-            return true;
-          } catch (error) {
-            console.error(error);
-            res.status(500).send('Error al borrar la entrada del json en 173 datacontroler');
-          }
+          const indiceEntradaBorrada=entradas.findIndex(item => item.id === id);
+          entradas.splice(indiceEntradaBorrada, 1);
+          await fs.writeFile('./public/static/json/entradas.json', JSON.stringify(entradas, null, 2));
+          console.log("linea 204 datacontroler el json ya esta actualizado sin la entrada id: ", id);
+          return true;
+        } catch (error) {
+          console.error(error);
+          res.status(500).send('Error al borrar la entrada del json en 208 datacontroler');
+        }
     },
 
   datainput: {

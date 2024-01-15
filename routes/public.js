@@ -60,6 +60,24 @@ router.get('/eventos', async (req,res)=>{
       }
 });
 
+router.get('/actividad/:id', async (req,res)=>{
+  try {
+    console.log("estamos en linea 65 public.js")
+    let result = ''
+    let id=req.params.id
+    let data = await datacontroler.actividad(req.params.id)
+    if (!data) {
+      res.status(404).send('did not work linea 69 public')
+      return
+    }
+    result = templates.buildPage('subpagActividad', {data:data})
+    res.send(result)
+  } catch (e) {
+      console.warn(e);
+      res.status(400).send('linea 76 public - oops, something went wrong del public');
+  }
+});
+
 router.get('/ubicacion', async (req,res)=>{
   try {
     let data = await datacontroler.ubicacion();

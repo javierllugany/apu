@@ -1,52 +1,60 @@
-const template = function(dataActividades){
-  console.log('linea 2 subpagTalleres dataActividades es: ', dataActividades);
-  let lista = '';
-  let h2nuevo='';
-  let pestañaTitulo='';
-  console.log('linea 8 subpagTalleres dataActividades.data[0].tipo es: ', dataActividades.data[0].tipo);
-  if (dataActividades.data[0].tipo==='Taller') {
-    h2nuevo='APU - LISTA de TALLERES';
-    pestañaTitulo='APU Talleres';
-  } else {
-    h2nuevo='APU - LISTA de EVENTOS';
-    pestañaTitulo='APU Eventos';
+const template = function(dataActividad){
+  console.log('linea 2 subpagActividad dataActividad es: ', dataActividad);
+  let actividad = dataActividad.data
+  let tipo = actividad.tipo
+  let titulo = actividad.titulo
+  let fechaInicio = actividad.fechaInicio
+  let programa = actividad.programa
+  let lugar=actividad.lugar
+  let descripcion=actividad.descripcion
+  let tallerista=actividad.tallerista
+  let organiza=actividad.organiza
+  let videolink=actividad.videolink.url
+  let divTallerista=''
+  if(dataActividad.data.tipo==="Taller"){
+    divTallerista = `<div class="tallerista">Tallerista: ${tallerista}</div>`;
   }
-  dataActividades.data.sort((a, b) => new Date(b.fechaInicio) - new Date(a.fechaInicio));
-  for(let x=0;x<dataActividades.data.length;x++){
-    let actividad = dataActividades.data[x]
-    let titulo = actividad.titulo
-    let tipo = actividad.tipo
-    let fechaInicio = actividad.fechaInicio
-    let programa = actividad.programa
-    let descripcion=''
-    if (actividad.descripcion.length>100) {
-      descripcion = actividad.descripcion.substring(0,actividad.descripcion.indexOf(' ',100))+'...';
-    } else {
-      descripcion = actividad.descripcion;
-    }
-    let img='';
-    if(actividad.fotos[0]){
-      img = `<img src="${actividad.fotos[0].url}" alt="${actividad.fotos[0].title}">`
+  let imgPrincipal='';
+  if(dataActividad.data.fotos[0]){
+    imgPrincipal = `<img src="${dataActividad.data.fotos[0].url}" alt="${titulo}">`;
+  }
+  let divVideoLink=''
+  if(dataActividad.data.videolink.url){
+    divVideoLink = `<div class="linkYoutube"><a href="${videolink}" target="_blank">${videolink}</a></div>`;
+  }
+  let divfotos=[]
+  for(let x=1;x<dataActividad.data.fotos.length;x++){
+    let foto = dataActividad.data.fotos[x]
+  //  listafotos.push(foto)
+    divfotos+= `  <li>
+                      <img src="${foto.url}">
+                    </li>`;
     };
-    lista+=`<li>
-              ${img}
-              <div class="datos">
-                <div class="tipo">${tipo}</div>
-                <h3><a href="/actividad/${actividad.id}">
-                  ${titulo}</a></h3>
-                <div class="fecha">Fecha de Inicio: ${fechaInicio}</div>
-                <div class="programa">${programa}</div>
-                <div class="descripcion">${descripcion}</div>
-              </div>
-            </li>
-    `
-  }
+    let lista=`<div class="datosActividad">
+                  ${imgPrincipal}
+                  <div class="informacionActividad">
+                      <h3 class="tipoActividad">${tipo}</h3>
+                      <h2 class="tituloActividad">${titulo}</h2>
+                      <div class="fechaInicio">Fecha de Inicio: ${fechaInicio}</div>
+                      <div class="programa">${programa}</div>
+                      <div class="lugar">Lugar: ${lugar}</div>
+                      ${divTallerista}
+                      <div class="organiza">Organiza: ${organiza}</div>
+                      ${divVideoLink}
+                  </div>
+                  <div class="descripcion">${descripcion}</div>
+                  <ul class="listafotos">
+                    ${divfotos}
+                  </ul>
+            </div>
+  `;
+
     let raw = `
     <!DOCTYPE html>
     <html lang="es" dir="ltr">
       <head>
         <meta charset="utf-8">
-        <title>${pestañaTitulo}</title>
+        <title>${titulo}</title>
         <link rel="shortcut icon" href="../public/static/logos/APU-icon.png" type="image/png">
         <link rel="stylesheet" href="../public/static/layout.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -55,7 +63,7 @@ const template = function(dataActividades){
       <body>
         <header class="pagUbicacion">
           <div id="pagPresentacion">
-            <h1>APU LISTA DE TALLERES</h1>
+            <h1>APU ${titulo}</h1>
             <input type="checkbox" id="checkboxHamburguesa" onclick="" name="" value="">
             <label for="checkboxHamburguesa" id="menuON">
               <span></span>
@@ -99,11 +107,8 @@ const template = function(dataActividades){
               </a>
               <a id="subscribe-button" href="https://api.whatsapp.com/send?phone=+5492613347020&text=Hola,+quiero+información+sobre+cómo+colaborar+con+el+APU" target="_blank">Asociate</a>
             </div>
-            <div class="listaTodasLasActividades contenidoUsuarios">
-              <h2 class="admin">${h2nuevo}</h2>
-              <ul>
+            <div class="listaUnaActividad">
                 ${lista}
-              </ul>
             </div>
           </div>
         </header>

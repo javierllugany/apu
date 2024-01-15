@@ -13,10 +13,11 @@
 
 header{
   background-image: url("/public/files/boho-art-7687374_1280.jpg");
-  background-repeat: no-repeat, no-repeat;
+  background-repeat: repeat, no-repeat;
   background-position-x: 0vw, center;
   background-position-y: -2vh, bottom;
   background-size: 100%;
+  min-height: 100vh;
 }
 
 a{
@@ -35,14 +36,15 @@ h1{
 div#pagPresentacion{
   display: grid;
   grid-template-areas:
-        "menuHamburguesa logo logo socialLink"
-        "contenido contenido fotos socialLink"
+        "menuHamburguesa logo logovacio socialLink"
+        "contenido1 contenido1 fotos socialLink"
+        "contenido contenido contenido socialLink"
         "footer footer footer footer";
-  grid-template-columns: 1fr 2fr 2fr 4vw;
+  grid-template-columns: 2fr 1fr 3fr 4vw;
   grid-row-gap: 2vh;
-  height: 100vh;
+  /* height: 100vh; */
   overflow: clip;
-  grid-template-rows: 40vh 56vh;
+  grid-template-rows: 40vh auto auto;
 }
 
 .modeloSubpag div#pagPresentacion{
@@ -71,7 +73,7 @@ div#pagPresentacion{
         "contenido contenido socialLink"
         "footer footer footer";
   grid-template-columns: 1fr 2fr 4vw;
-  grid-template-rows: 40vh auto;
+  grid-template-rows: 40vh auto auto;
   overflow: auto;
 }
 
@@ -173,7 +175,7 @@ div.form.admin form ul li p{
   grid-column: 2/3;
 }
 
-div.listaTodasLasActividades{
+div.listaUnaActividad{
   grid-area: contenido;
 }
 
@@ -183,12 +185,65 @@ div.contenidoUsuarios{
                       "contenido";
   grid-row-gap: 2vh;
   margin: 2vh;
+  grid-area: contenido;
+}
+
+div.datosActividad{
+  display: grid;
+  grid-template-areas: "imagen datos"
+                      "imagen datos"
+                      "descripcion descripcion"
+                      "fotos fotos";
+  grid-template-columns: 40vw 50vw;
+  grid-column-gap: 2vw;
+  grid-row-gap: 1.5vh;
+  margin: 2vh;
+}
+
+div.datosActividad img{
+  grid-area: imagen;
+  width: 100%;
+}
+
+div.datosActividad div.informacionActividad{
+  grid-area: datos;
+  font-size: 1.5em;
+  line-height: 2em;
+}
+
+div.datosActividad div.informacionActividad h2{
+  font-size: 3em;
+  margin-bottom: 1em;
+}
+
+div.datosActividad div.informacionActividad h3{
+  font-size: 2em;
+  margin-bottom: 1em;
+}
+
+div.datosActividad div.descripcion{
+  grid-area: descripcion;
+  font-size: 1.5em;
+  line-height: 1.5em;
+  margin: 2vh auto;
+}
+
+div.datosActividad ul{
+  grid-area: fotos;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-column-gap: 2vw;
+  margin: 2vh;
+}
+
+div.listaTodasLasActividades{
+  grid-area: contenido;
 }
 
 div.listaTodasLasActividades ul{
   grid-area: contenido;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   grid-column-gap: 2vw;
   margin: 2vh;
 }
@@ -200,12 +255,18 @@ div.listaTodasLasActividades ul li{
 }
 
 div.listaTodasLasActividades ul li img{
-  grid-columns: 1/2;
+  grid-column: 1/2;
   width: 80%;
 }
 
 div.listaTodasLasActividades ul li div.datos{
-  grid-columns: 2/3;
+  grid-column: 2/3;
+  font-size: 1.3em;
+  line-height: 1.5em;
+}
+
+div.listaTodasLasActividades ul li div.datos h3{
+  font-size: 1.8em;
 }
 
 #menuON span{
@@ -264,10 +325,7 @@ input[type="checkbox"]:checked ~ nav.MenuDesplegableModeloSubpag {
 
 input[type="checkbox"]:checked ~ #menuON {
   position:absolute;
-}
-
-input[type="checkbox"]:checked ~ label.botonLogoUbi {
-  transform: translateX(-10000px);
+  z-index: 15;
 }
 
 input[type="checkbox"]:checked ~ #LogoApuModeloSubpag,
@@ -278,7 +336,7 @@ input[type="checkbox"]:checked ~ #botonLogoModeloSubpag {
 
 #LogoApu{
   grid-area: logo;
-  justify-self: center;
+  justify-self: right;
   height: 33vh;
   margin: 4vh 0 2vw;
   position: relative;
@@ -302,8 +360,8 @@ input[type="checkbox"]:checked ~ #botonLogoModeloSubpag {
 
 #pagPresentacion label#botonLogo{
   display: block;
-  width: 28vw;
-  height: 33vw;
+  width: 13vw;
+  height: 33vh;
   grid-area: logo;
   justify-self: center;
   position: relative;
@@ -415,46 +473,61 @@ a#subscribe-button{
   text-align:center;
 }
 
+.proximasActividades1{
+  grid-area: contenido1;
+  margin-left: 2vw;
+  overflow: clip;
+  height: 50vh;
+}
+
 .proximasActividades{
   grid-area: contenido;
   margin-left: 2vw;
   overflow: clip;
 }
-.proximasActividades h2 {
+
+.proximasActividades1 h2 {
   font-size: 2em;
 }
 .listaActividades{
   display: grid;
-  grid-template-rows: 1fr 1fr;
-  height: 100%;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 2vw;
 }
-.proximasActividades li{
+.proximasActividades li,
+.proximasActividades1 div.datosFrontpage1{
   display: grid;
-  grid-template-areas: "foto titulo"
-  "foto resumen";
+  grid-template-areas: "foto titulo";
   margin: 3vh 2vh 1vh 0;
-  grid-template-rows: auto 1fr;
   grid-gap: 2vh;
-  overflow: clip;
   text-align: left;
   grid-template-columns: max-content;
 }
-.proximasActividades h3{
-  grid-area: titulo;
-  font-size: 1.5em;
+.proximasActividades li a,
+.proximasActividades1 div a{
+  font-size: 2em;
 }
 
-.proximasActividades li a:hover{
+.proximasActividades li a:hover,
+.proximasActividades1 div a:hover{
 	color: rgb(164, 136, 42);
 }
 
-.proximasActividades img{
-  width: 26vw;
+.proximasActividades img,
+.proximasActividades1 img{
+  height: 32vh;
   grid-area: foto;
   overflow: clip;
 }
-.proximasActividades p{
-  grid-area: resumen;
+.proximasActividades li div.datosFrontpage,
+.proximasActividades1 div div.datosFrontpage{
+  grid-area: titulo;
+}
+
+.proximasActividades li div.datosFrontpage div,
+.proximasActividades1 div div.datosFrontpage div{
+  margin-bottom: 2vh;
+  font-size: 1.5em;
 }
 
 .proyeccionFotos{
@@ -463,7 +536,7 @@ a#subscribe-button{
   display: grid;
   background-color: #896f6d73;
   border-color: #896f6d;
-  margin: 2vh;
+  margin-right: 3vh;
   border-style: solid;
   border-width: 2vh;
   height: 50vh;
@@ -525,21 +598,35 @@ div#sliderModelo img{
   display: inline;
 }
 
+/* desde acá para admin */
+
+form.password div label,
+form.password div input,
+form.password div button,
+form.password input{
+  font-size: 1em;
+  margin-top: 1em;
+}
+
+form.password{
+  margin-right: 2em;
+  text-align: right;
+}
+
 @media screen and (orientation: portrait){
 
   header{
-    background-position-y: 12vh, bottom;
-    background-image: url("../../design/boho-art-7687374_1280.jpg"),
-    linear-gradient(to bottom, #827e73 40vh, #827e73 1%, #cbbfa5 1%, #cbbfa5 49%);
+    background-size: auto;
   }
 
   div#pagPresentacion{
     display: grid;
     grid-template-areas: "menuHamburguesa logo socialLink"
     "fotos fotos socialLink"
+    "contenido1 contenido1 socialLink"
     "contenido contenido socialLink"
     "footer footer footer";
-    grid-template-columns: 1fr 2fr 9vw;
+    grid-template-columns: 15vw 75vw 9vw;
     overflow: auto;
     grid-template-rows: 40vh auto auto;
     height: auto;
@@ -566,18 +653,31 @@ div#sliderModelo img{
     left: calc(50% - 1.7vw);
   }
 
+  #LogoApu{
+    justify-self: center;
+  }
+
   input[type="checkbox"]:checked ~ #LogoApu,
   input[type="checkbox"]:checked ~ #botonLogo,
   input[type="checkbox"]:checked ~ #LogoApuModeloSubpag,
-  input[type="checkbox"]:checked ~ #botonLogoModeloSubpag,
-   {
-    opacity: 1;
-    transform: translateY(40vh);
-    z-index: 6;
+  input[type="checkbox"]:checked ~ #botonLogoModeloSubpag{
+    opacity: 0.1;
+    /* transform: translateY(40vh); */
+    z-index: 8;
   }
 
   input[type="checkbox"]:checked ~ nav.MenuDesplegable {
-    width: 100%;
+    width: 90vw;
+    grid-area: menuHamburguesa;
+      grid-row-start: menuHamburguesa;
+      grid-row-end: menuHamburguesa;
+      grid-column-start: menuHamburguesa;
+      grid-column-end: logo;
+      z-index: 12;
+  }
+
+  input[type="checkbox"]:checked ~ #botonLogo{
+    display: none;
   }
 
   /* desde aca revisar */
@@ -608,7 +708,7 @@ div#sliderModelo img{
 
   div.SocialLink{
     width: 9vw;
-    right: 0;
+    right: 5px;
   }
 
   div.SocialLink a{
@@ -625,7 +725,7 @@ div#sliderModelo img{
   }
 
   .proyeccionFotos{
-    display: grid;
+    margin-left: 3vh;
     height: 36vh;
   }
 
@@ -633,46 +733,115 @@ div#sliderModelo img{
   height: 32vh;
   }
 
-div.proximasActividades{
-  margin-left: 4vw;
-  overflow: auto;
+  div.proximasActividades1,
+  div.proximasActividades{
+    margin-right: 2vw;
+    height: auto;
+  }
+
+  .proximasActividades li,
+  .proximasActividades1 div.datosFrontpage1{
+    grid-template-areas:
+              "foto"
+              "titulo";
+    margin: 3vh 0 2vh;
+    grid-template-columns: auto;
+    grid-template-rows: 35vh auto;
+    grid-gap: 0;
+  }
+
+  .proximasActividades li div.datosFrontpage div,
+  .proximasActividades1 div div.datosFrontpage div {
+    margin-bottom: 1vh;
+  }
+
+  .proximasActividades img,
+  .proximasActividades1 img {
+    height: 90%;
+    justify-self: center;
+  }
+
+  div.proximasActividades h2{
+  	font-size: 2em;
+  }
+
+  ul.listaActividades {
+  	display: block;
+  	height: auto;
+  }
+
+  .proximasActividades a {
+    grid-area: titulo;
+  }
+
+  h2.admin{
+    font-size: 6vw;
+  }
+
+  div.listaTodasLasActividades ul {
+  display: block;
+  margin: 0;
+  }
+
+  div.listaTodasLasActividades ul li {
+    display: block;
+  }
+
+  div.datosActividad {
+    display: grid;
+    grid-template-areas:
+                  "imagen"
+                  "datos"
+                  "descripcion"
+                  "fotos";
+    grid-template-columns: 90vw;
+    grid-column-gap: 0;
+    grid-row-gap: 1.5vh;
+    margin: 2vh;
+  }
+
+  div.datosActividad img {
+    grid-area: imagen;
+    width: 90%;
+  }
+
+  .modeloSubpag.admin div#pagAdmin {
+    grid-template-areas:
+    "titulo"
+    "menu"
+    "contenido"
+    "footer";
+    grid-template-columns: 95vw;
+    grid-template-rows: auto;
+    padding: 2vw;
+  }
+
+  div.admin form ul li {
+    grid-template-columns: auto 1fr;
+  }
+
+  .modeloSubpag.admin div#pagAdmin div.topMenu.admin ul{
+    margin-bottom: 3vh;
+    margin-right: 6vw;
+  }
+
+  input.admin{
+    width: 90%;
+  }
+
+  input#EditFecha {
+  width: fit-content;
 }
 
-div.proximasActividades h2{
-	font-size: 2em;
-}
+  textarea#EditDescripcion {
+    width: 90%;
+  }
 
-ul.listaActividades {
-	display: block;
-	height: auto;
-}
-
-.proximasActividades li {
-	grid-template-areas: "titulo titulo" "foto resumen";
-	margin: 3vh 2vw 1vh 0vw;;
-	grid-template-rows: auto auto;
-	grid-gap: 1.5vh;
-	overflow: auto;
-	grid-template-columns: auto auto;
-}
-
-.proximasActividades a {
-  grid-area: titulo;
-}
-
-.proximasActividades h3 {
-  font-size: 1.6em;
-  text-align: center;
-}
-
-.proximasActividades img {
-    width: 45vw;
-    overflow: clip;
-}
-
-.proximasActividades p {
-	font-size: 0.9em;
-}
+  button.botonFinal {
+    justify-self: right;
+    margin-right: 5vw;
+    margin-bottom: 0;
+  }
 
 }
 
@@ -742,20 +911,16 @@ div.ubicacion .mapaChico{
   .pagUbicacion div#pagPresentacion {
     display: grid;
     grid-template-areas: "menuHamburguesa logo socialLink" "texto texto socialLink" "contenido contenido socialLink" "footer footer footer";
-    grid-template-columns: 1fr 1fr 4vw;
+    grid-template-columns: 15vw 75vw 10vw;;
     grid-template-rows: 40vh auto auto auto;
     grid-row-gap: 2vw;
     height: 100vh;
-  }
-
-  .pagUbicacion div#pagPresentacion #LogoApu{
-    margin: 5vh auto 2vh;
+    grid-column-gap: 0;
   }
 
   .pagUbicacion div#pagPresentacion label#botonLogo {
-	width: 38vw;
-	height: 47vw;
-	margin: 5vh auto auto;
+	width: 50vw;
+	height: 80%;
 }
 
 input[type="checkbox"]:checked ~ .pagUbicacion div#pagPresentacion nav.MenuDesplegable {
@@ -775,20 +940,12 @@ div.textoUbicacion {
   line-height: 3vh;
 }
 
-  /*  .pagUbicacion div#pagPresentacion{
-    transition: all 0.50s ease;
-  }
-
-   input[type="checkbox"]:checked ~ .pagUbicacion div#pagPresentacion{
-      grid-template-rows: 55vw auto auto;
-  } */
-
   div.ubicacion .mapaMediano{
     display: none;
   }
 
   div.ubicacion .mapaChico{
     display: block;
-    width: 90%;
+    width: 100%;
   }
 }

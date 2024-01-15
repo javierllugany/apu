@@ -30,6 +30,7 @@ tmp
 vendor
 Gemfile.lock
 node_modules
+design
 excludeAPU.rsync
 .env
 token.json

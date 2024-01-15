@@ -1,8 +1,52 @@
-const template = function(data){
-
-    let listaAgenda=data.articulo1
-
-
+const template = function(dataFrontpage){
+  console.log('linea 2 frontpage dataFrontpage es: ', dataFrontpage);
+  let lista = '';
+  let actividadFrontpage1='';
+  dataFrontpage.sort((a, b) => new Date(b.fechaInicio) - new Date(a.fechaInicio));
+  for(let x=0;x<dataFrontpage.length;x++){
+    let actividad = dataFrontpage[x]
+    let titulo = actividad.titulo
+    let tipo = actividad.tipo
+    let fechaInicio = actividad.fechaInicio
+    let programa = actividad.programa
+    let descripcion=''
+    if (actividad.descripcion.length>100) {
+      descripcion = actividad.descripcion.substring(0,actividad.descripcion.indexOf(' ',100))+'...';
+    } else {
+      descripcion = actividad.descripcion;
+    }
+    let img='';
+    if(actividad.fotos[0]){
+      img = `<img src="${actividad.fotos[0].url}" alt="${actividad.fotos[0].title}">`
+    };
+    if (x===0) {
+      actividadFrontpage1= `
+              <div class="datosFrontpage1">
+                ${img}
+                <div class="datosFrontpage">
+                  <div class="tipo">${tipo}</div>
+                  <a href="/actividad/${actividad.id}"><h3>${titulo}</h3></a>
+                  <div class="fecha">Fecha de Inicio: ${fechaInicio}</div>
+                  <div class="programa">${programa}</div>
+                  <div class="descripcion">${descripcion}</div>
+                </div>
+              </div>
+              `
+    } else {
+    lista+=`
+            <li>
+              ${img}
+              <div class="datosFrontpage">
+                <div class="tipo">${tipo}</div>
+                <a href="/actividad/${actividad.id}"><h3>${titulo}</h3></a>
+                <div class="fecha">Fecha de Inicio: ${fechaInicio}</div>
+                <div class="programa">${programa}</div>
+                <div class="descripcion">${descripcion}</div>
+              </div>
+            </li>
+            `
+          }
+    }
     let raw = `
     <!DOCTYPE html>
     <html lang="es" dir="ltr">
@@ -62,20 +106,13 @@ const template = function(data){
               </a>
               <a id="subscribe-button" href="https://api.whatsapp.com/send?phone=+5492613347020&text=Hola,+quiero+información+sobre+cómo+colaborar+con+el+APU" target="_blank">Asociate</a>
             </div>
-            <div class="proximasActividades">
+            <div class="proximasActividades1">
               <h2>Vení y participá!</h2>
+              ${actividadFrontpage1}
+            </div>
+            <div class="proximasActividades">
               <ul class="listaActividades">
-                <li>
-                  <a href="#"><h3>Festival Me Vuelvo al Pueblo<br>(12 al 15 de Octubre)</h3></a>
-                  <img src="public/files/foto-de-fondo.png" alt="">
-                  <p>Un fin de semana a puro sol y arte.<br>Cine, charlas, música, mates y siestas.</p>
-                </li>
-                <li>
-                  <a href="/cineTerror"><h3>Terror en la Montaña<br>(19 y 20 de Agosto)</h3></a>
-                  <img src="public/files/materialParaWebTerror/imgPortada.png" alt="">
-                  <p>Presentaremos seis producciones de realizadores mendocinos basadas en el género de terror.<br>
-                  Acercate al Club APU y disfrutá del mejor cine!</p>
-                </li>
+              ${lista}
               </ul>
             </div>
             <div class="proyeccionFotos">

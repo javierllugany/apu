@@ -9,7 +9,7 @@ const template = function(actividades){
       let programa = actividad.programa
       let descripcion=''
       if (actividad.descripcion.length>100) {
-        descripcion = actividad.descripcion.substring(0,actividad.descripcion.indexOf('',100))+'...';
+        descripcion = actividad.descripcion.substring(0,actividad.descripcion.indexOf(' ',100))+'...';
       } else {
         descripcion = actividad.descripcion;
       }
@@ -23,7 +23,7 @@ const template = function(actividades){
                   <div class="tipo">${tipo}</div>
                   <h3><a href="/admin/${actividad.id}">
                     ${titulo}</a></h3>
-                  <div class="fecha">${fechaInicio}</div>
+                  <div class="fecha">Fecha de Inicio: ${fechaInicio}</div>
                   <div class="programa">${programa}</div>
                   <div class="descripcion">${descripcion}</div>
                 </div>

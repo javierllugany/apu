@@ -45,13 +45,13 @@
                 <input id="EditFecha" type="date" name="fechaInicio" class="admin" value="${data.fechaInicio}" required>
               </li>
               <li>
-                <label for="EditDias">Días y Horario de la Actividad</label>
-                <input id="EditDias" type="text" name="programa" class="admin" size="70" value="${data.programa}">
+                <label for="EditDias">Días y Horario</label>
+                <input id="EditDias" type="text" name="programa" class="admin" size="70" value="${data.programa}" required>
               </li>
               <li>
                 <label for="EditLugar">Lugar</label>
                 <p><input id="EditLugar" type="text" name="lugar" size="45" spellcheck="true"
-                  value="${data.lugar}" class="admin"></p>
+                  value="${data.lugar}" class="admin" required></p>
               </li>
               <li>
                 <label for="EditDescripcion">Descripción</label>
@@ -66,7 +66,7 @@
               <li>
                 <label for="EditOrganiza">Organiza</label>
                 <p><input id="EditOrganiza" type="text" name="organiza" size="70" spellcheck="true"
-                  value="${data.organiza}" class="admin"></p>
+                  value="${data.organiza}" class="admin" required></p>
               </li>
             </ul>
             <ul id="sumafotos">
