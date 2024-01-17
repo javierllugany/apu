@@ -214,6 +214,7 @@ div.datosActividad div.informacionActividad{
 div.datosActividad div.informacionActividad h2{
   font-size: 3em;
   margin-bottom: 1em;
+  line-height: 1em;
 }
 
 div.datosActividad div.informacionActividad h3{
@@ -501,7 +502,7 @@ a#subscribe-button{
   margin: 3vh 2vh 1vh 0;
   grid-gap: 2vh;
   text-align: left;
-  grid-template-columns: max-content;
+  grid-template-columns: 40% 60%;
 }
 .proximasActividades li a,
 .proximasActividades1 div a{
@@ -515,7 +516,7 @@ a#subscribe-button{
 
 .proximasActividades img,
 .proximasActividades1 img{
-  height: 32vh;
+  width: 100%;
   grid-area: foto;
   overflow: clip;
 }
@@ -804,6 +805,12 @@ form.password{
     grid-area: imagen;
     width: 90%;
   }
+
+  div.datosActividad ul {
+  grid-template-columns: 1fr;
+  grid-column-gap: 0;
+  grid-row-gap: 1vh;
+}
 
   .modeloSubpag.admin div#pagAdmin {
     grid-template-areas:
